@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sbreu
- * Date: 5-1-2017
- * Time: 00:19
- */
-
 
 use VDB\Spider\Discoverer\XPathExpressionDiscoverer;
 use Symfony\Component\EventDispatcher\Event;
@@ -13,7 +6,7 @@ use VDB\Spider\Event\SpiderEvents;
 use VDB\Spider\StatsHandler;
 use VDB\Spider\Spider;
 
-require_once '/php-spider/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // Create Spider
 $spider = new Spider('http://www.dmoz.org');
