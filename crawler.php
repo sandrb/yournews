@@ -8,22 +8,28 @@
  */
 class crawler {
 
-    function update(){
+    public function update(){
         global $sql;
-        $sites = $sql->fetch_object("SELECT id,domain FROM input_sites");
+        $sites = $sql->fetch_object("SELECT * FROM input_sites LIMIT 1");
         foreach($sites as $site){
-            $this->singleUpdate($site->id, $site->domain);
+            $this->singleUpdate($site->id, $site);
         }
     }
 
-    function singleUpdate($id,$domain = null){
+    public function singleUpdate($id,$site = null){
         global $sql;
-        if($domain == null){
-            $domain = $sql->single_select("SELECT domain FROM input_sites WHERE id = " . $id);
-            /*$site = $sql->fetch_object("SELECT domain FROM input_sites WHERE id = " . $id);
-            $domain = $site->domain;*/
+        if($site == null){
+            //if needed: fill in missing values
+            $site = $sql->fetch_object_single_row("SELECT * FROM input_sites WHERE id = " . $id . " LIMIT 1");
         }
-        echo $id . ": " . $domain . "<br>";
+        //get home page
+        /*$dom = new DomDocument();
+        $dom->loadHTMLFile("http://" . $site->domain);
+        $finder = new DomXPath($dom);
+        $nodes = $finder->query($site->area_query);
+        $html = $dom->saveHTML($nodes->item(0));
+        print_r($html);*/
+        echo $id . ": " . $site->domain . "<br>";
         //todo
     }
 }
