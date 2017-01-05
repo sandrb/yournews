@@ -7,8 +7,12 @@
  */
 
 class config {
+
     public $dbhost = "localhost";
     public $dbuser = "root";
     public $dbpass = "";
     public $dbname = "yournews";
+
+    public $error_reporting = "E_ERROR | E_WARNING | E_PARSE";
+
 }
