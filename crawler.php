@@ -10,7 +10,7 @@ class crawler {
 
     function update(){
         global $sql;
-        print_r($sql->fetch_array("SELECT * FROM input_sites"));
+        print_r($sql->fetch_object("SELECT * FROM input_sites"));
 
         die("todo");
     }
