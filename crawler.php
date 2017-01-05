@@ -10,7 +10,7 @@ class crawler {
 
     public function update(){
         global $sql;
-        $sites = $sql->fetch_object("SELECT * FROM input_sites LIMIT 1");
+        $sites = $sql->fetch_object("SELECT * FROM input_sites");
         foreach($sites as $site){
             $this->singleUpdate($site->id, $site);
         }
@@ -22,14 +22,14 @@ class crawler {
             //if needed: fill in missing values
             $site = $sql->fetch_object_single_row("SELECT * FROM input_sites WHERE id = " . $id . " LIMIT 1");
         }
-        //get home page
-        /*$dom = new DomDocument();
+        //remove (most of the) layout, each website has it's specific area_query
+        $dom = new DomDocument();
         $dom->loadHTMLFile("http://" . $site->domain);
         $finder = new DomXPath($dom);
         $nodes = $finder->query($site->area_query);
-        $html = $dom->saveHTML($nodes->item(0));
-        print_r($html);*/
-        echo $id . ": " . $site->domain . "<br>";
+        $html = $dom->saveHTML($nodes->item(0));//the html within the tag that satisfies the query
+
+        echo $id . ": " . $site->domain . " (" . $nodes->length . ")<br>";
         //todo
     }
 }
