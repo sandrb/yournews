@@ -19,7 +19,7 @@ global $sql;
 $sql = new sql($config->dbhost, $config->dbuser, $config->dbpass, $config->dbname);
 
 //pageload
-if($_GET['action'] == "crawl"){
+if($_GET['a'] == "crawl"){
     require_once("crawler.php");
     $crawler = new crawler($sql);
     $crawler->update();
