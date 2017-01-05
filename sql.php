@@ -42,6 +42,24 @@ class sql{
         }
     }
 
+
+
+    /**
+     * @param $q input query
+     * @return the one value
+     * Returns the very first value found
+     */
+    function single_select($q){
+        if($q = $this->mysqli->query($q)){
+            $result = $q->fetch_array();
+            return $result[0];
+        } else {
+            echo "MySQL error: <br>\n";
+            var_dump($this->mysqli->error);
+            die();
+        }
+    }
+
     /**
      * @param $q input query
      * @return the query result

@@ -19,8 +19,9 @@ class crawler {
     function singleUpdate($id,$domain = null){
         global $sql;
         if($domain == null){
-            $site = $sql->fetch_object("SELECT domain FROM input_sites WHERE id = " . $id);
-            $domain = $site->domain;
+            $domain = $sql->single_select("SELECT domain FROM input_sites WHERE id = " . $id);
+            /*$site = $sql->fetch_object("SELECT domain FROM input_sites WHERE id = " . $id);
+            $domain = $site->domain;*/
         }
         echo $id . ": " . $domain . "<br>";
         //todo
