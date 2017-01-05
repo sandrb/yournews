@@ -6,10 +6,17 @@
  * Time: 00:19
  */
 
-include("config.php");
+require_once("config.php");
 $config = new config();
 
-include("sql.php");
+require_once("sql.php");
+global $sql;
 $sql = new sql($config->dbhost, $config->dbuser, $config->dbpass, $config->dbname);
 
-print_r($sql->fetch_array("SELECT * FROM input_sites"));
+if($_GET['action'] == "crawl"){
+    require_once("crawler.php");
+    $crawler = new crawler($sql);
+    $crawler->update();
+}else{
+    echo "Not yet implemented";
+}
