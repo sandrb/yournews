@@ -22,17 +22,35 @@ class sql{
     /**
      * @param $q input query
      * @return array of the results
-     * Runs a query, fetches the objects and returns them.
+     * Runs a query, fetches the objects and returns them in an array.
      */
     function fetch_object($q){
         if($r = $this->mysqli->query($q)){
+            $result = array();
+            while($row = $r->fetch_object()){
+                $result[] = $row;
+            }
+            return $result;
+        } else {
+            echo "MySQL error: <br>\n";
+            echo "query: " . $q . "<br>\n";
+            echo "Error";
+            var_dump($this->mysqli->error);
+            die();
+        }
+    }
+
+
+
+    /**
+     * @param $q input query
+     * @return single object of the first row
+     * Runs a query, fetches the first object and returns that one
+     */
+    function fetch_object_single_row($q){
+        if($r = $this->mysqli->query($q)){
             if($r->num_rows == 1){
                 $result = $r->fetch_object();
-            }else{
-                $result = array();
-                while($row = $r->fetch_object()){
-                    $result[] = $row;
-                }
             }
             return $result;
         } else {
