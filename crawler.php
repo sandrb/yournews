@@ -10,8 +10,19 @@ class crawler {
 
     function update(){
         global $sql;
-        print_r($sql->fetch_object("SELECT * FROM input_sites"));
+        $sites = $sql->fetch_object("SELECT id,domain FROM input_sites");
+        foreach($sites as $site){
+            $this->singleUpdate($site->id, $site->domain);
+        }
+    }
 
-        die("todo");
+    function singleUpdate($id,$domain = null){
+        global $sql;
+        if($domain == null){
+            $site = $sql->fetch_object("SELECT domain FROM input_sites WHERE id = " . $id);
+            $domain = $site->domain;
+        }
+        echo $id . ": " . $domain . "<br>";
+        //todo
     }
 }
