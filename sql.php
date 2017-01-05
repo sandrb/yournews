@@ -25,18 +25,20 @@ class sql{
      * Runs a query, fetches the objects and returns them.
      */
     function fetch_object($q){
-        if($q = $this->mysqli->query($q)){
-            if($q->num_rows == 1){
-                $result = $q->fetch_object();
+        if($r = $this->mysqli->query($q)){
+            if($r->num_rows == 1){
+                $result = $r->fetch_object();
             }else{
                 $result = array();
-                while($row = $q->fetch_object()){
+                while($row = $r->fetch_object()){
                     $result[] = $row;
                 }
             }
             return $result;
         } else {
             echo "MySQL error: <br>\n";
+            echo "query: " . $q . "<br>\n";
+            echo "Error";
             var_dump($this->mysqli->error);
             die();
         }
@@ -50,11 +52,13 @@ class sql{
      * Returns the very first value found
      */
     function single_select($q){
-        if($q = $this->mysqli->query($q)){
-            $result = $q->fetch_array();
+        if($r = $this->mysqli->query($q)){
+            $result = $r->fetch_array();
             return $result[0];
         } else {
             echo "MySQL error: <br>\n";
+            echo "query: " . $q . "<br>\n";
+            echo "Error";
             var_dump($this->mysqli->error);
             die();
         }
@@ -66,10 +70,12 @@ class sql{
      * Runs the query and returns it's result
      */
     function query($q){
-        if($q = $this->mysqli->query($q)){
-            return $q;
+        if($r = $this->mysqli->query($q)){
+            return $r;
         } else {
             echo "MySQL error: <br>\n";
+            echo "query: " . $q . "<br>\n";
+            echo "Error";
             var_dump($this->mysqli->error);
             die();
         }
