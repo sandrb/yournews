@@ -10,7 +10,7 @@ class crawler {
 
     public function update(){
         global $sql;
-        $sites = $sql->fetch_object("SELECT * FROM input_sites");
+        $sites = $sql->fetch_object("SELECT * FROM input_sites WHERE domain = 'politico.com'");
         foreach($sites as $site){
             $this->singleUpdate($site->id, $site);
         }
@@ -30,11 +30,25 @@ class crawler {
         $html = $dom->saveHTML($nodes->item(0));//the html within the tag that satisfies the query
 
         echo "<b>" . $id . ": " . $site->domain . " (" . $nodes->length . ")</b><br>\n";
+        //echo $html;
         $dom->loadHTML($html);//continue with just this part
-        $links = array();
+
         foreach($dom->getElementsByTagName("a") as $link){
             $title = $link->nodeValue;
             $url = $link->getAttribute("href");
+            echo $title . ": " . $url . "<br>\n";
+
+            if(strlen($url) <= 2 || strlen($title) <= 2){
+                continue;//skip short urls or titles
+            }
+
+            if(is_numeric($title)){
+                continue;//skip numeric-only titles (some kind of ID, but not a title we want)
+            }
+
+            if(strpos($url, 'javascript:') !== false){
+                continue;//nove javascript links
+            }
         }
         echo "<p><hr><p>";
         //todo
