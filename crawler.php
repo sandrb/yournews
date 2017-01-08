@@ -10,7 +10,7 @@ class crawler {
 
     public function update(){
         global $sql;
-        $sites = $sql->fetch_object("SELECT * FROM input_sites WHERE");
+        $sites = $sql->fetch_object("SELECT * FROM input_sites WHERE id = 17");
         foreach($sites as $site){
             $this->singleUpdate($site->id, $site);
         }
@@ -22,6 +22,7 @@ class crawler {
             //if needed: fill in missing values
             $site = $sql->fetch_object_single_row("SELECT * FROM input_sites WHERE id = " . $id . " LIMIT 1");
         }
+        $forbidden = $sql->fetch_object("SELECT text FROM forbidden_links WHERE input_site = " . $id);
         //remove (most of the) layout, each website has it's specific area_query
         $dom = new DomDocument();
         $dom->loadHTMLFile("http://" . $site->domain);
@@ -36,9 +37,8 @@ class crawler {
         foreach($dom->getElementsByTagName("a") as $link){
             $title = $link->nodeValue;
             $url = $link->getAttribute("href");
-            echo $title . ": " . $url . "<br>\n";
 
-            if(strlen($url) <= 2 || strlen($title) <= 2){
+            if(strlen(trim($url)) <= 2 || strlen(trim($title)) <= 2){
                 continue;//skip short urls or titles
             }
 
@@ -49,6 +49,19 @@ class crawler {
             if(strpos($url, 'javascript:') !== false){
                 continue;//nove javascript links
             }
+
+            $continue = false;
+            foreach($forbidden as  $search){
+                //skip all manually added forbidden links (speeds up the process significantly)
+                if(strpos($url,$search->text) !== false || strpos($title,$search->text) && !$continue){
+                    $continue = true;
+                }
+            }
+            if($continue){
+                continue;
+            }
+
+            echo $title . ": " . $url . "<br>\n";
         }
         echo "<p><hr><p>";
         //todo

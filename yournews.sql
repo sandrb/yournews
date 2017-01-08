@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 08 jan 2017 om 23:57
+-- Gegenereerd op: 09 jan 2017 om 00:25
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -50,8 +50,8 @@ INSERT INTO `forbidden_links` (`id`, `input_site`, `text`) VALUES
 (11, 2, '/tech/'),
 (12, 2, '/travel/'),
 (13, 2, 'http://www.reviewed.com/'),
-(14, 3, 'http://www.facebook.com'),
-(15, 3, 'https://twitter.com'),
+(14, 3, 'facebook.com'),
+(15, 3, 'twitter.com'),
 (16, 3, '/sponsor'),
 (17, 3, '/businessweek'),
 (18, 3, '/hpsubtout'),
@@ -64,9 +64,6 @@ INSERT INTO `forbidden_links` (`id`, `input_site`, `text`) VALUES
 (25, 10, '/author/'),
 (26, 12, 'nytimes.com'),
 (27, 12, 'theverge.com'),
-(28, 12, ''),
-(29, 12, ''),
-(30, 12, ''),
 (31, 13, '/theWire'),
 (32, 13, '/news/pictures'),
 (33, 13, '/commentary'),
@@ -100,7 +97,17 @@ INSERT INTO `forbidden_links` (`id`, `input_site`, `text`) VALUES
 (61, 19, '/about'),
 (62, 19, 'elitedaily.com'),
 (63, 9, '/staff/'),
-(64, 9, '/magazine/');
+(64, 9, '/magazine/'),
+(67, 3, 'bloomberg.com/view'),
+(68, 3, 'bloomberg.com/gadfly'),
+(74, 7, '/contributor/'),
+(75, 15, 'shop.foxsports.com'),
+(76, 15, 'foxsports.com/undisputed'),
+(77, 19, '/category/'),
+(78, 19, '/tips'),
+(79, 19, '/terms'),
+(80, 19, '/contact/'),
+(81, 1, 'advertisement');
 
 -- --------------------------------------------------------
 
@@ -136,7 +143,7 @@ INSERT INTO `input_sites` (`id`, `category`, `name`, `domain`, `area_query`) VAL
 (14, 'sports', 'ESPN', 'espn.com', '//*[contains(@class, ''container-wrapper'')]'),
 (15, 'sports', 'Fox Sports', 'foxsports.com', '//*[contains(@class,''body-content'')]'),
 (16, 'sports', 'NBC Sports', 'nbcsports.com', '//*[contains(@class,''main-layout'')]'),
-(17, 'entertainment', 'E!', 'eonline.com', '//*[contains(@class,''rebrand-widget-container'')]'),
+(17, 'entertainment', 'E!', 'eonline.com', '//*[contains(@class,''js-categorygrid--'')]'),
 (18, 'entertainment', 'US magazine', 'usmagazine.com', '//*[contains(@class,''home-layout'')]'),
 (19, 'entertainment', 'TMZ', 'tmz.com', '//*[contains(@id,''main-content'')]');
 
@@ -165,7 +172,7 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `forbidden_links`
 --
 ALTER TABLE `forbidden_links`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 --
 -- AUTO_INCREMENT voor een tabel `input_sites`
 --
