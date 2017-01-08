@@ -10,7 +10,7 @@ class crawler {
 
     public function update(){
         global $sql;
-        $sites = $sql->fetch_object("SELECT * FROM input_sites WHERE domain = 'politico.com'");
+        $sites = $sql->fetch_object("SELECT * FROM input_sites WHERE");
         foreach($sites as $site){
             $this->singleUpdate($site->id, $site);
         }
