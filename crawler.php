@@ -10,7 +10,7 @@ class crawler {
 
     public function update(){
         global $sql;
-        $sites = $sql->fetch_object("SELECT * FROM input_sites WHERE id = 17");
+        $sites = $sql->fetch_object("SELECT * FROM input_sites");
         foreach($sites as $site){
             $this->singleUpdate($site->id, $site);
         }
@@ -23,6 +23,9 @@ class crawler {
             $site = $sql->fetch_object_single_row("SELECT * FROM input_sites WHERE id = " . $id . " LIMIT 1");
         }
         $forbidden = $sql->fetch_object("SELECT text FROM forbidden_links WHERE input_site = " . $id);
+        $visited = $sql->fetch_object("SELECT url FROM articles WHERE input_site = " . $id);
+
+
         //remove (most of the) layout, each website has it's specific area_query
         $dom = new DomDocument();
         $dom->loadHTMLFile("http://" . $site->domain);
@@ -61,9 +64,28 @@ class crawler {
                 continue;
             }
 
-            echo $title . ": " . $url . "<br>\n";
+
+            //we want relative urls, so strip this from any content we don't want
+            $url = str_replace(array("http://","https://","www.",$site->domain), "" , $url);
+
+            //skip urls that are already in the database
+            foreach($visited as $visurl){
+                if($url == $visurl->url){
+                    $continue = true;
+                }
+            }
+            if($continue){
+                continue;
+            }
+
+            //add this url to visited pages
+            $visited[]->url = $url;
+
+            //go to article page and retrieve contents
+            $article = file_get_contents("http://" . $site->domain . $url);
+
+            echo $title . ":" . $url . "<br>\n";
         }
         echo "<p><hr><p>";
-        //todo
     }
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 09 jan 2017 om 00:25
+-- Gegenereerd op: 09 jan 2017 om 00:57
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -19,6 +19,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `yournews`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `articles`
+--
+
+CREATE TABLE `articles` (
+  `id` int(11) NOT NULL,
+  `input_site` int(11) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `timestamp` int(11) NOT NULL COMMENT 'Timestamp on which is was discovered by our crawler, not when it was published',
+  `content` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -107,7 +121,16 @@ INSERT INTO `forbidden_links` (`id`, `input_site`, `text`) VALUES
 (78, 19, '/tips'),
 (79, 19, '/terms'),
 (80, 19, '/contact/'),
-(81, 1, 'advertisement');
+(81, 1, 'advertisement'),
+(82, 7, '/social/'),
+(83, 12, '/the-weekly/'),
+(84, 12, 'facebook.com'),
+(85, 12, 'twitter.com'),
+(86, 12, 'linkedin.com'),
+(87, 12, 'youtube.com'),
+(88, 12, 'data./'),
+(89, 12, '/trader-poll/'),
+(90, 19, '/page/');
 
 -- --------------------------------------------------------
 
@@ -120,36 +143,44 @@ CREATE TABLE `input_sites` (
   `category` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL COMMENT 'Name of the website',
   `domain` varchar(255) NOT NULL COMMENT 'Domain name without http or www before it',
-  `area_query` varchar(255) NOT NULL COMMENT 'DOM query for getting the area with the links we''re interested in'
+  `area_query` varchar(255) NOT NULL COMMENT 'DOM query for getting the area with the links we''re interested in',
+  `article_area_query` varchar(255) NOT NULL COMMENT 'The DOM area query for retrieving the aritcle content'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `input_sites`
 --
 
-INSERT INTO `input_sites` (`id`, `category`, `name`, `domain`, `area_query`) VALUES
-(1, 'general', 'NBC News', 'nbcnews.com', '//*[contains(@class, ''row js-top-stories-content'')]'),
-(2, 'general', 'USA today', 'usatoday.com', '//*[contains(@id, ''section_home'')]'),
-(3, 'general', 'Bloomberg', 'bloomberg.com', '//*[contains(@class, ''home__top-of-home'')]'),
-(4, 'general', 'Fox news', 'foxnews.com', '//*[contains(@id, ''latest'')]'),
-(6, 'tech', 'CNET', 'cnet.com', '//*[contains(@class, ''responsiveLatest'')]'),
-(7, 'tech', 'Tech Crunch', 'techcrunch.com', '//*[contains(@id, ''river1'')]'),
-(8, 'tech', 'Tech News World', 'technewsworld.com', '//*[contains(@id, ''content-main'')]'),
-(9, 'politics', 'Politico', 'politico.com', '//*[contains(@class, ''cluster-groupset layout-grid grid-4'')]'),
-(10, 'politics', 'Huffington Post', 'huffingtonpost.com', '//*[@class=''a-page__content'']'),
-(11, 'financial', 'Wall Street Journal', 'wsj.com', '//*[contains(@class, ''lead-story'')]'),
-(12, 'financial', 'CNBC', 'cnbc.com', '//*[contains(@class, ''cnbc-body'')] '),
-(13, 'financial', 'Reuters', 'reuters.com', '//*[contains(@id, ''rcs-mainContentTop'')]'),
-(14, 'sports', 'ESPN', 'espn.com', '//*[contains(@class, ''container-wrapper'')]'),
-(15, 'sports', 'Fox Sports', 'foxsports.com', '//*[contains(@class,''body-content'')]'),
-(16, 'sports', 'NBC Sports', 'nbcsports.com', '//*[contains(@class,''main-layout'')]'),
-(17, 'entertainment', 'E!', 'eonline.com', '//*[contains(@class,''js-categorygrid--'')]'),
-(18, 'entertainment', 'US magazine', 'usmagazine.com', '//*[contains(@class,''home-layout'')]'),
-(19, 'entertainment', 'TMZ', 'tmz.com', '//*[contains(@id,''main-content'')]');
+INSERT INTO `input_sites` (`id`, `category`, `name`, `domain`, `area_query`, `article_area_query`) VALUES
+(1, 'general', 'NBC News', 'nbcnews.com', '//*[contains(@class, ''row js-top-stories-content'')]', ''),
+(2, 'general', 'USA today', 'usatoday.com', '//*[contains(@id, ''section_home'')]', ''),
+(3, 'general', 'Bloomberg', 'bloomberg.com', '//*[contains(@class, ''home__top-of-home'')]', ''),
+(4, 'general', 'Fox news', 'foxnews.com', '//*[contains(@id, ''latest'')]', ''),
+(6, 'tech', 'CNET', 'cnet.com', '//*[contains(@class, ''responsiveLatest'')]', ''),
+(7, 'tech', 'Tech Crunch', 'techcrunch.com', '//*[contains(@id, ''river1'')]', ''),
+(8, 'tech', 'Tech News World', 'technewsworld.com', '//*[contains(@id, ''content-main'')]', ''),
+(9, 'politics', 'Politico', 'politico.com', '//*[contains(@class, ''cluster-groupset layout-grid grid-4'')]', ''),
+(10, 'politics', 'Huffington Post', 'huffingtonpost.com', '//*[@class=''a-page__content'']', ''),
+(11, 'financial', 'Wall Street Journal', 'wsj.com', '//*[contains(@class, ''lead-story'')]', ''),
+(12, 'financial', 'CNBC', 'cnbc.com', '//*[contains(@class, ''cnbc-body'')] ', ''),
+(13, 'financial', 'Reuters', 'reuters.com', '//*[contains(@id, ''rcs-mainContentTop'')]', ''),
+(14, 'sports', 'ESPN', 'espn.com', '//*[contains(@class, ''container-wrapper'')]', ''),
+(15, 'sports', 'Fox Sports', 'foxsports.com', '//*[contains(@class,''body-content'')]', ''),
+(16, 'sports', 'NBC Sports', 'nbcsports.com', '//*[contains(@class,''main-layout'')]', ''),
+(17, 'entertainment', 'E!', 'eonline.com', '//*[contains(@class,''js-categorygrid--'')]', ''),
+(18, 'entertainment', 'US magazine', 'usmagazine.com', '//*[contains(@class,''home-layout'')]', ''),
+(19, 'entertainment', 'TMZ', 'tmz.com', '//*[contains(@id,''main-content'')]', '');
 
 --
 -- Indexen voor geëxporteerde tabellen
 --
+
+--
+-- Indexen voor tabel `articles`
+--
+ALTER TABLE `articles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `input_site` (`input_site`);
 
 --
 -- Indexen voor tabel `forbidden_links`
@@ -169,10 +200,15 @@ ALTER TABLE `input_sites`
 --
 
 --
+-- AUTO_INCREMENT voor een tabel `articles`
+--
+ALTER TABLE `articles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT voor een tabel `forbidden_links`
 --
 ALTER TABLE `forbidden_links`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 --
 -- AUTO_INCREMENT voor een tabel `input_sites`
 --
@@ -181,6 +217,12 @@ ALTER TABLE `input_sites`
 --
 -- Beperkingen voor geëxporteerde tabellen
 --
+
+--
+-- Beperkingen voor tabel `articles`
+--
+ALTER TABLE `articles`
+  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`input_site`) REFERENCES `input_sites` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Beperkingen voor tabel `forbidden_links`
