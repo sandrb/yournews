@@ -29,7 +29,14 @@ class crawler {
         $nodes = $finder->query($site->area_query);
         $html = $dom->saveHTML($nodes->item(0));//the html within the tag that satisfies the query
 
-        echo $id . ": " . $site->domain . " (" . $nodes->length . ")<br>";
+        echo "<b>" . $id . ": " . $site->domain . " (" . $nodes->length . ")</b><br>\n";
+        $dom->loadHTML($html);//continue with just this part
+        $links = array();
+        foreach($dom->getElementsByTagName("a") as $link){
+            $title = $link->nodeValue;
+            $url = $link->getAttribute("href");
+        }
+        echo "<p><hr><p>";
         //todo
     }
 }
