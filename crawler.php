@@ -11,9 +11,11 @@ class crawler {
     public function update(){
         global $sql;
         $sites = $sql->fetch_object("SELECT * FROM input_sites");
+        $return = array();
         foreach($sites as $site){
-            $this->singleUpdate($site->id, $site);
+            $return[] = $this->singleUpdate($site->id, $site);
         }
+        echo json_encode($return);
     }
 
     public function singleUpdate($id,$site = null){
@@ -25,7 +27,10 @@ class crawler {
         $forbidden = $sql->fetch_object("SELECT text FROM forbidden_links WHERE input_site = " . $id);
         $visited = $sql->fetch_object("SELECT url FROM articles WHERE input_site = " . $id);
 
-
+        $return = array();
+        $return["id"] = $id;
+        $return["domain"] = $site->domain;
+        $return["amount"] = 0;
         //remove (most of the) layout, each website has it's specific area_query
         $dom = new DomDocument();
         $dom->loadHTMLFile("http://" . $site->domain);
@@ -33,8 +38,6 @@ class crawler {
         $nodes = $finder->query($site->area_query);
         $html = $dom->saveHTML($nodes->item(0));//the html within the tag that satisfies the query
 
-        echo "<b>" . $id . ": " . $site->domain . " (" . $nodes->length . ")</b><br>\n";
-        //echo $html;
         $dom->loadHTML($html);//continue with just this part
 
         foreach($dom->getElementsByTagName("a") as $link){
@@ -88,15 +91,21 @@ class crawler {
                 $subdomain .= ".";
             }
 
+            //todo: improve this for: usatoday.com, foxsports.com, nbcsports.com
             $articledom = new DomDocument();
             $articledom->loadHTMLFile("http://" . $subdomain . $site->domain . $url);
             $articlefinder = new DomXPath($articledom);
             $articlenodes = $articlefinder->query($site->article_area_query);
-            $articlehtml = $articledom->saveHTML($articlenodes->item(0));
 
-            $sql->query("INSERT INTO `articles` ( `input_site`, `url`,  `content`) VALUES ( '" . $site->id . "', '" . $sql->mysqli->real_escape_string($url) . "', '" . $sql->mysqli->real_escape_string($articlehtml) . "');");
-            echo $title . ":" .  $url . "<br>\n";
+            if($articlenodes->length >= 0){
+                //only store stuff if the link actually contains an article
+                $articlehtml = $articledom->saveHTML($articlenodes->item(0));
+                if(strlen($articlehtml) > 2){
+                    $sql->query("INSERT INTO `articles` ( `input_site`, `url`,  `content`) VALUES ( '" . $site->id . "', '" . $sql->mysqli->real_escape_string($url) . "', '" . $sql->mysqli->real_escape_string($articlehtml) . "');");
+                    $return["amount"]++;
+                }
+            }
         }
-        echo "<p><hr><p>";
+        return $return;
     }
 }

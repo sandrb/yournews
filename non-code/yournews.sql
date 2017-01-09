@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 09 jan 2017 om 01:39
+-- Gegenereerd op: 09 jan 2017 om 14:12
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -130,7 +130,8 @@ INSERT INTO `forbidden_links` (`id`, `input_site`, `text`) VALUES
 (87, 12, 'youtube.com'),
 (88, 12, 'data./'),
 (89, 12, '/trader-poll/'),
-(90, 19, '/page/');
+(90, 19, '/page/'),
+(91, 19, '/photos/');
 
 -- --------------------------------------------------------
 
@@ -203,12 +204,12 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=618;
 --
 -- AUTO_INCREMENT voor een tabel `forbidden_links`
 --
 ALTER TABLE `forbidden_links`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 --
 -- AUTO_INCREMENT voor een tabel `input_sites`
 --
