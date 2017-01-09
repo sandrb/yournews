@@ -11,7 +11,7 @@ require_once("config.php");
 $config = new config();
 
 //error reporting
-error_reporting($config->error_reporting);
+error_reporting(E_ERROR | E_PARSE);
 
 //sql connection
 require_once("sql.php");
