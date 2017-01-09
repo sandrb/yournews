@@ -15,7 +15,7 @@ class crawler {
         foreach($sites as $site){
             $return[] = $this->singleUpdate($site->id, $site);
         }
-        echo json_encode($return);
+        return $return;
     }
 
     public function singleUpdate($id,$site = null){
@@ -44,6 +44,9 @@ class crawler {
             $title = $link->nodeValue;
             $url = $link->getAttribute("href");
 
+            //we want relative urls, so strip this from any content we don't want
+            $url = str_replace(array("http://","https://","www.",$site->domain), "" , $url);
+
             if(strlen(trim($url)) <= 2 || strlen(trim($title)) <= 2){
                 continue;//skip short urls or titles
             }
@@ -67,9 +70,6 @@ class crawler {
                 continue;
             }
 
-
-            //we want relative urls, so strip this from any content we don't want
-            $url = str_replace(array("http://","https://","www.",$site->domain), "" , $url);
 
             //skip urls that are already in the database
             foreach($visited as $visurl){
@@ -99,9 +99,10 @@ class crawler {
 
             if($articlenodes->length >= 0){
                 //only store stuff if the link actually contains an article
-                $articlehtml = $articledom->saveHTML($articlenodes->item(0));
-                if(strlen($articlehtml) > 2){
-                    $sql->query("INSERT INTO `articles` ( `input_site`, `url`,  `content`) VALUES ( '" . $site->id . "', '" . $sql->mysqli->real_escape_string($url) . "', '" . $sql->mysqli->real_escape_string($articlehtml) . "');");
+                $articlehtml = $articledom->saveHTML($articlenodes->item(0));//this check doesn't work 100%, so we have another filter in the next line
+                if(strlen($articlehtml) > 2 && substr("$articlehtml",0,9) != "<!DOCTYPE"){
+
+                    $sql->query("INSERT INTO `articles` ( `input_site`, `url`,  `raw_content`) VALUES ( '" . $site->id . "', '" . $sql->mysqli->real_escape_string($url) . "', '" . $sql->mysqli->real_escape_string($articlehtml) . "');");
                     $return["amount"]++;
                 }
             }

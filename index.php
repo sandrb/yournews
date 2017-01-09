@@ -22,7 +22,8 @@ $sql = new sql($config->dbhost, $config->dbuser, $config->dbpass, $config->dbnam
 if($_GET['a'] == "crawl"){
     require_once("crawler.php");
     $crawler = new crawler($sql);
-    $crawler->update();
+    $result = $crawler->update();
+    echo json_encode($result);
 }else if($_GET['a'] == "admin") {
     include("admin/index.php");
 }else{
