@@ -23,6 +23,8 @@ if($_GET['a'] == "crawl"){
     require_once("crawler.php");
     $crawler = new crawler($sql);
     $crawler->update();
+}else if($_GET['a'] == "admin") {
+    include("admin/index.php");
 }else{
     echo "Not yet implemented";
 }
