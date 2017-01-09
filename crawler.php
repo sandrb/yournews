@@ -82,9 +82,20 @@ class crawler {
             $visited[]->url = $url;
 
             //go to article page and retrieve contents
-            $article = file_get_contents("http://" . $site->domain . $url);
+            $subdomain = null;
+            if(strpos(".",$url) != false){
+                list($subdomain,) = explode(".", $url);
+                $subdomain .= ".";
+            }
 
-            echo $title . ":" . $url . "<br>\n";
+            $articledom = new DomDocument();
+            $articledom->loadHTMLFile("http://" . $subdomain . $site->domain . $url);
+            $articlefinder = new DomXPath($articledom);
+            $articlenodes = $articlefinder->query($site->article_area_query);
+            $articlehtml = $articledom->saveHTML($articlenodes->item(0));
+
+            $sql->query("INSERT INTO `articles` ( `input_site`, `url`,  `content`) VALUES ( '" . $site->id . "', '" . $sql->mysqli->real_escape_string($url) . "', '" . $sql->mysqli->real_escape_string($articlehtml) . "');");
+            echo $title . ":" .  $url . "<br>\n";
         }
         echo "<p><hr><p>";
     }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 09 jan 2017 om 00:57
+-- Gegenereerd op: 09 jan 2017 om 01:39
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -30,7 +30,7 @@ CREATE TABLE `articles` (
   `id` int(11) NOT NULL,
   `input_site` int(11) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `timestamp` int(11) NOT NULL COMMENT 'Timestamp on which is was discovered by our crawler, not when it was published',
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp on which is was discovered by our crawler, not when it was published',
   `content` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -152,24 +152,24 @@ CREATE TABLE `input_sites` (
 --
 
 INSERT INTO `input_sites` (`id`, `category`, `name`, `domain`, `area_query`, `article_area_query`) VALUES
-(1, 'general', 'NBC News', 'nbcnews.com', '//*[contains(@class, ''row js-top-stories-content'')]', ''),
-(2, 'general', 'USA today', 'usatoday.com', '//*[contains(@id, ''section_home'')]', ''),
-(3, 'general', 'Bloomberg', 'bloomberg.com', '//*[contains(@class, ''home__top-of-home'')]', ''),
-(4, 'general', 'Fox news', 'foxnews.com', '//*[contains(@id, ''latest'')]', ''),
-(6, 'tech', 'CNET', 'cnet.com', '//*[contains(@class, ''responsiveLatest'')]', ''),
-(7, 'tech', 'Tech Crunch', 'techcrunch.com', '//*[contains(@id, ''river1'')]', ''),
-(8, 'tech', 'Tech News World', 'technewsworld.com', '//*[contains(@id, ''content-main'')]', ''),
-(9, 'politics', 'Politico', 'politico.com', '//*[contains(@class, ''cluster-groupset layout-grid grid-4'')]', ''),
-(10, 'politics', 'Huffington Post', 'huffingtonpost.com', '//*[@class=''a-page__content'']', ''),
-(11, 'financial', 'Wall Street Journal', 'wsj.com', '//*[contains(@class, ''lead-story'')]', ''),
-(12, 'financial', 'CNBC', 'cnbc.com', '//*[contains(@class, ''cnbc-body'')] ', ''),
-(13, 'financial', 'Reuters', 'reuters.com', '//*[contains(@id, ''rcs-mainContentTop'')]', ''),
-(14, 'sports', 'ESPN', 'espn.com', '//*[contains(@class, ''container-wrapper'')]', ''),
-(15, 'sports', 'Fox Sports', 'foxsports.com', '//*[contains(@class,''body-content'')]', ''),
-(16, 'sports', 'NBC Sports', 'nbcsports.com', '//*[contains(@class,''main-layout'')]', ''),
-(17, 'entertainment', 'E!', 'eonline.com', '//*[contains(@class,''js-categorygrid--'')]', ''),
-(18, 'entertainment', 'US magazine', 'usmagazine.com', '//*[contains(@class,''home-layout'')]', ''),
-(19, 'entertainment', 'TMZ', 'tmz.com', '//*[contains(@id,''main-content'')]', '');
+(1, 'general', 'NBC News', 'nbcnews.com', '//*[contains(@class, ''row js-top-stories-content'')]', '//*[contains(@class, ''article-body'')]'),
+(2, 'general', 'USA today', 'usatoday.com', '//*[contains(@id, ''section_home'')]', '//*[contains(@itemprob, ''articleBody'')]'),
+(3, 'general', 'Bloomberg', 'bloomberg.com', '//*[contains(@class, ''home__top-of-home'')]', '//*[contains(@class, ''body-copy'')]'),
+(4, 'general', 'Fox news', 'foxnews.com', '//*[contains(@id, ''latest'')]', '//*[contains(@class, ''article-text'')]'),
+(6, 'tech', 'CNET', 'cnet.com', '//*[contains(@class, ''responsiveLatest'')]', '//*[contains(@class, ''article-main-body'')]'),
+(7, 'tech', 'Tech Crunch', 'techcrunch.com', '//*[contains(@id, ''river1'')]', '//*[contains(@class, ''article-entry'')]'),
+(8, 'tech', 'Tech News World', 'technewsworld.com', '//*[contains(@id, ''content-main'')]', '//*[contains(@id, ''story-body'')]'),
+(9, 'politics', 'Politico', 'politico.com', '//*[contains(@class, ''cluster-groupset layout-grid grid-4'')]', '//*[contains(@class, ''story-text'')]'),
+(10, 'politics', 'Huffington Post', 'huffingtonpost.com', '//*[@class=''a-page__content'']', '//*[contains(@class, ''entry__body js-entry-body'')]'),
+(11, 'financial', 'Wall Street Journal', 'wsj.com', '//*[contains(@class, ''lead-story'')]', '//*[contains(@class, ''wsj-snippet-body'')]'),
+(12, 'financial', 'CNBC', 'cnbc.com', '//*[contains(@class, ''cnbc-body'')] ', '//*[contains(@class, ''group-container last'')]'),
+(13, 'financial', 'Reuters', 'reuters.com', '//*[contains(@id, ''rcs-mainContentTop'')]', '//*[contains(@id, ''article-text'')]'),
+(14, 'sports', 'ESPN', 'espn.com', '//*[contains(@class, ''container-wrapper'')]', '//*[contains(@class, ''article-body'')]'),
+(15, 'sports', 'Fox Sports', 'foxsports.com', '//*[contains(@class,''body-content'')]', '//*[contains(@itemprob, ''articleBody'')]'),
+(16, 'sports', 'NBC Sports', 'nbcsports.com', '//*[contains(@class,''main-layout'')]', '//*[contains(@class, ''post-body'')]'),
+(17, 'entertainment', 'E!', 'eonline.com', '//*[contains(@class,''js-categorygrid--'')]', '//*[contains(@id, ''article-detail'')]'),
+(18, 'entertainment', 'US magazine', 'usmagazine.com', '//*[contains(@class,''home-layout'')]', '//*[contains(@class, ''article-body-inner'')]'),
+(19, 'entertainment', 'TMZ', 'tmz.com', '//*[contains(@id,''main-content'')]', '//*[contains(@class, ''article-content'')]');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -203,7 +203,7 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 --
 -- AUTO_INCREMENT voor een tabel `forbidden_links`
 --
