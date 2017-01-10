@@ -22,12 +22,14 @@ $sql = new sql($config->dbhost, $config->dbuser, $config->dbpass, $config->dbnam
 if($_GET['a'] == "crawl"){
     require_once("crawler.php");
     $start = date("Y-m-d H:i:s");
-    $crawler = new crawler($sql);
+    $crawler = new crawler();
     $result = json_encode($crawler->update());
     $sql->query("INSERT INTO `" . $config->dbprefix . "crawler_log` (`start`,`output`) VALUES ('" . $start . "','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
 }else if($_GET['a'] == "admin") {
-    include("admin/index.php");
+    require_once("admin.php");
+    $admin = new admin();
+    $admin->overview();
 }else{
     echo "Not yet implemented";
 }
