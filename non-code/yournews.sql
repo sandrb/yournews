@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 10 jan 2017 om 15:48
+-- Gegenereerd op: 10 jan 2017 om 17:08
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -167,7 +167,7 @@ CREATE TABLE `input_sites` (
 
 INSERT INTO `input_sites` (`id`, `category`, `name`, `domain`, `area_query`, `article_area_query`) VALUES
 (1, 'general', 'NBC News', 'nbcnews.com', '//*[contains(@class, ''row js-top-stories-content'')]', '//*[contains(@class, ''article-body'')]'),
-(2, 'general', 'USA today', 'usatoday.com', '//*[contains(@id, ''section_home'')]', '//*[contains(@itemprob, ''articleBody'')]'),
+(2, 'general', 'USA today', 'usatoday.com', '//*[contains(@id, ''section_home'')]', '//*[contains(@class, ''asset-double-wide'')]'),
 (3, 'general', 'Bloomberg', 'bloomberg.com', '//*[contains(@class, ''home__top-of-home'')]', '//*[contains(@class, ''body-copy'')]'),
 (4, 'general', 'Fox news', 'foxnews.com', '//*[contains(@id, ''latest'')]', '//*[contains(@class, ''article-text'')]'),
 (6, 'tech', 'CNET', 'cnet.com', '//*[contains(@class, ''responsiveLatest'')]', '//*[contains(@class, ''article-main-body'')]'),
@@ -179,8 +179,8 @@ INSERT INTO `input_sites` (`id`, `category`, `name`, `domain`, `area_query`, `ar
 (12, 'financial', 'CNBC', 'cnbc.com', '//*[contains(@class, ''cnbc-body'')] ', '//*[contains(@class, ''group-container last'')]'),
 (13, 'financial', 'Reuters', 'reuters.com', '//*[contains(@id, ''rcs-mainContentTop'')]', '//*[contains(@id, ''article-text'')]'),
 (14, 'sports', 'ESPN', 'espn.com', '//*[contains(@class, ''container-wrapper'')]', '//*[contains(@class, ''article-body'')]'),
-(15, 'sports', 'Fox Sports', 'foxsports.com', '//*[contains(@class,''body-content'')]', '//*[contains(@itemprob, ''articleBody'')]'),
-(16, 'sports', 'NBC Sports', 'nbcsports.com', '//*[contains(@class,''main-layout'')]', '//*[contains(@class, ''post-body'')]'),
+(15, 'sports', 'Fox Sports', 'foxsports.com', '//*[contains(@class,''body-content'')]', '//*[contains(@class, ''story-body'')]'),
+(16, 'sports', 'NBC Sports', 'nbcsports.com', '//*[contains(@class,''main-layout'')]', '//*[contains(@class, ''entry-content'')]'),
 (17, 'entertainment', 'E!', 'eonline.com', '//*[contains(@class,''js-categorygrid--'')]', '//*[contains(@id, ''article-detail'')]'),
 (18, 'entertainment', 'US magazine', 'usmagazine.com', '//*[contains(@class,''home-layout'')]', '//*[contains(@class, ''article-body-inner'')]'),
 (19, 'entertainment', 'TMZ', 'tmz.com', '//*[contains(@id,''main-content'')]', '//*[contains(@class, ''article-content'')]');
@@ -5403,12 +5403,12 @@ ALTER TABLE `stop_words`
 -- AUTO_INCREMENT voor een tabel `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1496;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1630;
 --
 -- AUTO_INCREMENT voor een tabel `crawler_log`
 --
 ALTER TABLE `crawler_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT voor een tabel `forbidden_links`
 --

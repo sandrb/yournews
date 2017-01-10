@@ -88,8 +88,8 @@ class crawler {
 
             //go to article page and retrieve contents
             $subdomain = null;
-            if(strpos(".",$url) != false){
-                list($subdomain,) = explode(".", $url);
+            if(strpos($url,".") !== false){
+                list($subdomain,$url) = explode(".", $url);
                 $subdomain .= ".";
             }
 
