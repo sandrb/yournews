@@ -10,7 +10,8 @@ class crawler {
 
     public function update(){
         global $sql;
-        $sites = $sql->fetch_object("SELECT * FROM input_sites");
+        global $config;
+        $sites = $sql->fetch_object("SELECT * FROM " . $config->dbprefix . "input_sites");
         $return = array();
         foreach($sites as $site){
             $return[] = $this->singleUpdate($site->id, $site);
@@ -20,12 +21,13 @@ class crawler {
 
     public function singleUpdate($id,$site = null){
         global $sql;
+        global $config;
         if($site == null){
             //if needed: fill in missing values
-            $site = $sql->fetch_object_single_row("SELECT * FROM input_sites WHERE id = " . $id . " LIMIT 1");
+            $site = $sql->fetch_object_single_row("SELECT * FROM " . $config->dbprefix . "input_sites WHERE id = " . $id . " LIMIT 1");
         }
-        $forbidden = $sql->fetch_object("SELECT text FROM forbidden_links WHERE input_site = " . $id);
-        $visited = $sql->fetch_object("SELECT url FROM articles WHERE input_site = " . $id);
+        $forbidden = $sql->fetch_object("SELECT text FROM " . $config->dbprefix . "forbidden_links WHERE input_site = " . $id);
+        $visited = $sql->fetch_object("SELECT url FROM " . $config->dbprefix . "articles WHERE input_site = " . $id);
 
         $return = array();
         $return["id"] = $id;
@@ -102,7 +104,7 @@ class crawler {
                 $articlehtml = $articledom->saveHTML($articlenodes->item(0));//this check doesn't work 100%, so we have another filter in the next line
                 if(strlen($articlehtml) > 2 && substr("$articlehtml",0,9) != "<!DOCTYPE"){
 
-                    $sql->query("INSERT INTO `articles` ( `input_site`, `url`,  `raw_content`) VALUES ( '" . $site->id . "', '" . $sql->mysqli->real_escape_string($url) . "', '" . $sql->mysqli->real_escape_string($articlehtml) . "');");
+                    $sql->query("INSERT INTO `" . $config->dbprefix . "articles` ( `input_site`, `url`,  `raw_content`) VALUES ( '" . $site->id . "', '" . $sql->mysqli->real_escape_string($url) . "', '" . $sql->mysqli->real_escape_string($articlehtml) . "');");
                     $return["amount"]++;
                 }
             }

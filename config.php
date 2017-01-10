@@ -12,4 +12,6 @@ class config {
     public $dbuser = "root";
     public $dbpass = "";
     public $dbname = "yournews";
+
+    public $dbprefix = "";
 }
