@@ -11,7 +11,10 @@ require_once("config.php");
 $config = new config();
 
 //error reporting
-error_reporting(E_ERROR | E_PARSE);
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+//display_errors(true);
 
 //sql connection
 require_once("sql.php");
@@ -19,17 +22,33 @@ global $sql;
 $sql = new sql($config->dbhost, $config->dbuser, $config->dbpass, $config->dbname);
 
 //pageload
-if($_GET['a'] == "crawl"){
+if($_GET['a'] == "crawl") {
+    //crawls for new articles
     require_once("crawler.php");
     $start = date("Y-m-d H:i:s");
     $crawler = new crawler();
     $result = json_encode($crawler->update());
-    $sql->query("INSERT INTO `" . $config->dbprefix . "crawler_log` (`start`,`output`) VALUES ('" . $start . "','" . $sql->mysqli->real_escape_string($result) . "');");
+    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','crawl','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
+
+}else if($_GET['a'] == "indexing"){
+    //makes indexes articles in the database
+    require_once("indexing.php");
+    $start = date("Y-m-d H:i:s");
+    $indexer = new indexing();
+    $result = json_encode($indexer->update());
+    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','index','" . $sql->mysqli->real_escape_string($result) . "');");
+    echo $result;
+
 }else if($_GET['a'] == "admin") {
+    //admin interface with some database overviews
     require_once("admin.php");
     $admin = new admin();
     $admin->overview();
+
+}else if($_GET['a'] == "phpinfo") {
+    //to see current php version, not used anyfurther
+    phpinfo();
 }else{
     echo "Not yet implemented";
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 10 jan 2017 om 17:08
+-- Gegenereerd op: 10 jan 2017 om 22:28
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -31,20 +31,8 @@ CREATE TABLE `articles` (
   `input_site` int(11) NOT NULL,
   `url` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp on which is was discovered by our crawler, not when it was published',
-  `raw_content` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `crawler_log`
---
-
-CREATE TABLE `crawler_log` (
-  `id` int(11) NOT NULL,
-  `start` timestamp NULL DEFAULT NULL,
-  `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `output` text NOT NULL
+  `raw_content` text NOT NULL,
+  `content_text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -184,6 +172,20 @@ INSERT INTO `input_sites` (`id`, `category`, `name`, `domain`, `area_query`, `ar
 (17, 'entertainment', 'E!', 'eonline.com', '//*[contains(@class,''js-categorygrid--'')]', '//*[contains(@id, ''article-detail'')]'),
 (18, 'entertainment', 'US magazine', 'usmagazine.com', '//*[contains(@class,''home-layout'')]', '//*[contains(@class, ''article-body-inner'')]'),
 (19, 'entertainment', 'TMZ', 'tmz.com', '//*[contains(@id,''main-content'')]', '//*[contains(@class, ''article-content'')]');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `logs`
+--
+
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL,
+  `run` varchar(255) NOT NULL,
+  `start` timestamp NULL DEFAULT NULL,
+  `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `output` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -5371,12 +5373,6 @@ ALTER TABLE `articles`
   ADD KEY `input_site` (`input_site`);
 
 --
--- Indexen voor tabel `crawler_log`
---
-ALTER TABLE `crawler_log`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexen voor tabel `forbidden_links`
 --
 ALTER TABLE `forbidden_links`
@@ -5387,6 +5383,12 @@ ALTER TABLE `forbidden_links`
 -- Indexen voor tabel `input_sites`
 --
 ALTER TABLE `input_sites`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexen voor tabel `logs`
+--
+ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -5403,12 +5405,7 @@ ALTER TABLE `stop_words`
 -- AUTO_INCREMENT voor een tabel `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1630;
---
--- AUTO_INCREMENT voor een tabel `crawler_log`
---
-ALTER TABLE `crawler_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2519;
 --
 -- AUTO_INCREMENT voor een tabel `forbidden_links`
 --
@@ -5418,6 +5415,11 @@ ALTER TABLE `forbidden_links`
 -- AUTO_INCREMENT voor een tabel `input_sites`
 --
 ALTER TABLE `input_sites`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT voor een tabel `logs`
+--
+ALTER TABLE `logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT voor een tabel `stop_words`
