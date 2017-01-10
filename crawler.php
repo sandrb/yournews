@@ -16,6 +16,9 @@ class crawler {
         foreach($sites as $site){
             $return[] = $this->singleUpdate($site->id, $site);
         }
+
+        $return[] = $this->clearOld();
+
         return $return;
     }
 
@@ -109,6 +112,17 @@ class crawler {
                 }
             }
         }
+        return $return;
+    }
+
+    public function clearOld(){
+        global $sql;
+        global $config;
+        //lastly: remove artiles more than one week old
+        $sql->query("DELETE FROM " . $config->dbprefix . "articles WHERE timestamp < '" . date("Y-m-d H:i:s", time() - 7 * 24 * 60 * 60) . "'");
+        //note: this automatically cascades onto the keywords tables due to the index dependencies.
+        $return = array();
+        $return["deleted_articles"] = $sql->mysqli->affected_rows;
         return $return;
     }
 }
