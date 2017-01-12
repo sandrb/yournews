@@ -11,7 +11,8 @@ class crawler {
     public function update(){
         global $sql;
         global $config;
-        $sites = $sql->fetch_object("SELECT * FROM " . $config->dbprefix . "input_sites");
+        //select 3 sites at random: we cannot crawl all sites right after eachother due to overloads
+        $sites = $sql->fetch_object("SELECT * FROM " . $config->dbprefix . "input_sites ORDER BY RAND() LIMIT 3");
         $return = array();
         foreach($sites as $site){
             $return[] = $this->singleUpdate($site->id, $site);
