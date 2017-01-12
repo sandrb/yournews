@@ -8,6 +8,20 @@
  */
 class crawler {
 
+    public function fullUpdate(){
+        global $sql;
+        global $config;
+        $sites = $sql->fetch_object("SELECT * FROM " . $config->dbprefix . "input_sites");
+        $return = array();
+        foreach($sites as $site){
+            $return[] = $this->singleUpdate($site->id, $site);
+        }
+
+        $return[] = $this->clearOld();
+
+        return $return;
+    }
+
     public function update(){
         global $sql;
         global $config;
