@@ -28,11 +28,24 @@ class keyword_extraction {
         }
 
         $return["keywords"] = 0;
+        $return["no_keywords"] = 0;
 
         foreach($articles as $article){
             $keywords = $this->filterKeywords($article->content_text, $stopwordsarray);
-            print_r($keywords);
-            die();
+            $return["keywords"] += count($keywords);
+            $values = "";
+            //merge all keywords into one insert query to keep loading times under control
+            foreach($keywords as $keyword){
+                $values .= "('" . $article->id . "','" . $sql->mysqli->real_escape_string($keyword) . "'),";
+                //
+            }
+            $values = substr($values,0,strlen($values) - 1);//remove last ,
+            if(empty($values)){
+                //no keywords found? Do make an insert to prevent this article from being extracted again and again and to make it tracable for debugging
+                $values = "('" . $article->id . "','no keywords found')";
+                $return["no_keywords"]++;
+            }
+            $sql->query("INSERT INTO `article_keywords` (`article_id`, `keyword`) VALUES " . $values);
         }
         return $return;
     }
