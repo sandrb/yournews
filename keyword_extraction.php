@@ -53,8 +53,11 @@ class keyword_extraction {
         // remove whitespace and lowercase words in $text
         $text_array = array_map(function($x){return trim(strtolower($x));}, $text_array);
 
+        $keywords = array();
+
         foreach ($text_array as $term) {
-            if (!in_array($term, $stopwords)) {
+            //don't store stopwords, duplicates or short words
+            if (!in_array($term, $stopwords) && !in_array($term,$keywords) && strlen($term) >= 3) {
                 $keywords[] = $term;
             }
         };
