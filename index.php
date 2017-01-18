@@ -49,6 +49,15 @@ if($_GET['a'] == "crawl") {
     $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','index','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
 
+}else if($_GET['a'] == "keyword_extraction"){
+    //Extract all the keywords from the articles
+    require_once("keyword_extraction.php");
+    $start = date("Y-m-d H:i:s");
+    $extractor = new keyword_extraction();
+    $result = json_encode($extractor->update());
+    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','keyword_extraction','" . $sql->mysqli->real_escape_string($result) . "');");
+    echo $result;
+
 }else if($_GET['a'] == "admin") {
     //admin interface with some database overviews
     require_once("admin.php");

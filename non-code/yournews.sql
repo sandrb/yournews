@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 10 jan 2017 om 22:28
+-- Gegenereerd op: 18 jan 2017 om 23:52
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -33,6 +33,18 @@ CREATE TABLE `articles` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp on which is was discovered by our crawler, not when it was published',
   `raw_content` text NOT NULL,
   `content_text` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `article_keywords`
+--
+
+CREATE TABLE `article_keywords` (
+  `id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `keyword` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -5373,6 +5385,13 @@ ALTER TABLE `articles`
   ADD KEY `input_site` (`input_site`);
 
 --
+-- Indexen voor tabel `article_keywords`
+--
+ALTER TABLE `article_keywords`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `article_id` (`article_id`);
+
+--
 -- Indexen voor tabel `forbidden_links`
 --
 ALTER TABLE `forbidden_links`
@@ -5405,7 +5424,12 @@ ALTER TABLE `stop_words`
 -- AUTO_INCREMENT voor een tabel `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2519;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3290;
+--
+-- AUTO_INCREMENT voor een tabel `article_keywords`
+--
+ALTER TABLE `article_keywords`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT voor een tabel `forbidden_links`
 --
@@ -5420,7 +5444,7 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT voor een tabel `stop_words`
 --
@@ -5435,6 +5459,12 @@ ALTER TABLE `stop_words`
 --
 ALTER TABLE `articles`
   ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`input_site`) REFERENCES `input_sites` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Beperkingen voor tabel `article_keywords`
+--
+ALTER TABLE `article_keywords`
+  ADD CONSTRAINT `article_keywords_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`) ON DELETE CASCADE;
 
 --
 -- Beperkingen voor tabel `forbidden_links`
