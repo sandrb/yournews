@@ -30,8 +30,35 @@ class keyword_extraction {
         $return["keywords"] = 0;
 
         foreach($articles as $article){
-            //$keywords =
+            $keywords = $this->filterKeywords($article->content_text, $stopwordsarray);
+            print_r($keywords);
+            die();
         }
         return $return;
+    }
+
+    /**
+     * @param $text The input text
+     * @param $stopwords The keywords to be removed from this list
+     * @return an array with keywords of the inputted text
+     */
+    private function filterKeywords($text,$stopwords){
+        // Replace all non-word chars with comma
+        $pattern = '/[0-9\W]/';
+        $text = preg_replace($pattern, ',', $text);
+
+        // Create an array from $text
+        $text_array = explode(",",$text);
+
+        // remove whitespace and lowercase words in $text
+        $text_array = array_map(function($x){return trim(strtolower($x));}, $text_array);
+
+        foreach ($text_array as $term) {
+            if (!in_array($term, $stopwords)) {
+                $keywords[] = $term;
+            }
+        };
+
+        return $keywords;
     }
 }
