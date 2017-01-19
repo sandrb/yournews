@@ -22,8 +22,7 @@ if($curminutes %3 == 0){
     $request = "keyword_extraction";
 }else{
 
-    //for now: do indexing once an hour
-    $request = "keyword_extraction";
+    //insert request here to let it occur more often
 }
 
 if($request != ""){
