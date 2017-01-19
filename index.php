@@ -22,7 +22,10 @@ global $sql;
 $sql = new sql($config->dbhost, $config->dbuser, $config->dbpass, $config->dbname);
 
 //pageload
-if($_GET['a'] == "crawl") {
+
+if($_GET['a'] == "files") {//something in files folder? simply include
+    include("files/" . $_GET['b']);
+}else if($_GET['a'] == "crawl") {
     //crawls for new articles
     require_once("crawler.php");
     $start = date("Y-m-d H:i:s");
@@ -63,10 +66,9 @@ if($_GET['a'] == "crawl") {
     require_once("admin.php");
     $admin = new admin();
     $admin->overview();
-
-}else if($_GET['a'] == "phpinfo") {
-    //to see current php version, not used anyfurther
-    phpinfo();
 }else{
-    echo "Not yet implemented";
+    //load frontend, frontend class handles the rest
+    require_once("frontend.php");
+    $frontend = new frontend();
+    $frontend->display();
 }

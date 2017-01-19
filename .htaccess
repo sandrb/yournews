@@ -1,4 +1,7 @@
 RewriteEngine On
+
+RewriteRule ^(files)($|/) - [L]
+
 RewriteRule ^(.*)/(.*)/(.*)/(.*)$ index.php?a=$1&b=$2&c=$3&d=$4 [QSA]
 RewriteRule ^(.*)/(.*)/(.*)$ index.php?a=$1&b=$2&c=$3 [QSA]
 RewriteRule ^(.*)/(.*)$ index.php?a=$1&b=$2 [QSA]
