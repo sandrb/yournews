@@ -1,0 +1,5 @@
+https://www.setcronjob.com/
+
+Every 3 mins: http://hlddrole.nl/sander/yournews/crawl
+Daily at 23:30: http://hlddrole.nl/sander/yournews/indexing
+Daily at 23:34: http://hlddrole.nl/sander/yournews/keyword_extraction
