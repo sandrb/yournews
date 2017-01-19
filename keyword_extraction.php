@@ -45,7 +45,7 @@ class keyword_extraction {
                 $values = "('" . $article->id . "','no keywords found')";
                 $return["no_keywords"]++;
             }
-            $sql->query("INSERT INTO `article_keywords` (`article_id`, `keyword`) VALUES " . $values);
+            $sql->query("INSERT INTO `" . $config->dbprefix . "article_keywords` (`article_id`, `keyword`) VALUES " . $values);
         }
         return $return;
     }
