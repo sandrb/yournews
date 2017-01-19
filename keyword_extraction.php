@@ -15,7 +15,7 @@ class keyword_extraction {
         $return = array();
 
         $articles = $sql->fetch_object("
-            SELECT * FROM " . $config->dbprefix . "articles 
+            SELECT id,content_text FROM " . $config->dbprefix . "articles 
             WHERE 
             content_text != ''  AND 
             (SELECT COUNT(*) FROM " . $config->dbprefix . "article_keywords WHERE " . $config->dbprefix . "article_keywords.article_id = " . $config->dbprefix . "articles.id) = 0");
