@@ -20,6 +20,9 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 require_once("sql.php");
 $sql = new sql($config->dbhost, $config->dbuser, $config->dbpass, $config->dbname);
 
+//for sessions
+session_start();
+
 //pageload
 
 if($_GET['a'] == "files") {//something in files folder? simply include

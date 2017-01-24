@@ -8,13 +8,12 @@
  */
 class frontend {
     function display(){
-        session_start();
         if(!isset($_SESSION['userid'])){
             //show login form
             $this->showLogin();
         }else{
             //show news overview or article
-            echo "Logged in";
+            $this->showFrontend();
         }
     }
 
@@ -23,7 +22,7 @@ class frontend {
         $showform = true;
         //login attempt
         if($_POST['login'] == "Login" && $users->login($_POST['user_id'])){
-            //login is valid, go bakc to displayal
+            //login is valid, go back to display
             $showform = false;
             $this->display();
         }
@@ -33,5 +32,9 @@ class frontend {
             $logins = $users->allUsers();
             include("templates/login.php");
         }
+    }
+
+    function showFrontend(){
+        include("templates/overview.php");
     }
 }
