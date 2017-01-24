@@ -18,7 +18,7 @@ class keyword_extraction {
             SELECT id,content_text FROM " . $config->dbprefix . "articles 
             WHERE 
             content_text != ''  AND 
-            (SELECT COUNT(*) FROM " . $config->dbprefix . "article_keywords WHERE " . $config->dbprefix . "article_keywords.article_id = " . $config->dbprefix . "articles.id) = 0 LIMIT 5");
+            (SELECT COUNT(*) FROM " . $config->dbprefix . "article_keywords WHERE " . $config->dbprefix . "article_keywords.article_id = " . $config->dbprefix . "articles.id) = 0");
 
         $return["articles"] = count($articles);
         $stopwords = $sql->fetch_object("SELECT * FROM " . $config->dbprefix . "stop_words ");
