@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 18 jan 2017 om 23:52
+-- Gegenereerd op: 24 jan 2017 om 18:53
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -5373,6 +5373,26 @@ INSERT INTO `stop_words` (`id`, `varchar`) VALUES
 (5155, 'zone'),
 (5156, 'zoo');
 
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `users`
+--
+
+INSERT INTO `users` (`id`, `username`) VALUES
+(1, 'user1'),
+(2, 'user2'),
+(3, 'user3');
+
 --
 -- Indexen voor geëxporteerde tabellen
 --
@@ -5417,6 +5437,12 @@ ALTER TABLE `stop_words`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexen voor tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
@@ -5424,12 +5450,12 @@ ALTER TABLE `stop_words`
 -- AUTO_INCREMENT voor een tabel `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3290;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27494;
 --
 -- AUTO_INCREMENT voor een tabel `article_keywords`
 --
 ALTER TABLE `article_keywords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77054;
 --
 -- AUTO_INCREMENT voor een tabel `forbidden_links`
 --
@@ -5444,12 +5470,17 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6807;
 --
 -- AUTO_INCREMENT voor een tabel `stop_words`
 --
 ALTER TABLE `stop_words`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5157;
+--
+-- AUTO_INCREMENT voor een tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --
