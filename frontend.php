@@ -20,11 +20,18 @@ class frontend {
 
     function showLogin(){
         global $users;
-        if($_POST['login'] == "Login"){
-            echo "login: ";
-            print_r($_POST);
+        $showform = true;
+        //login attempt
+        if($_POST['login'] == "Login" && $users->login($_POST['user_id'])){
+            //login is valid, go bakc to displayal
+            $showform = false;
+            $this->display();
         }
-        $logins = $users->allUsers();
-        include("templates/login.php");
+
+        if($showform){
+            //no login attempt
+            $logins = $users->allUsers();
+            include("templates/login.php");
+        }
     }
 }

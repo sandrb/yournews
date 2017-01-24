@@ -15,4 +15,18 @@ class users {
         return $allUsers;
     }
 
+    function login($userId){
+        global $sql;
+        global $config;
+        $count = $sql->single_select("SELECT COUNT(*) as count FROM " . $config->dbprefix . "users WHERE id = '" . $sql->mysqli->real_escape_string($userId) . "'");
+
+        if($count > 0){
+            //user exists, login
+            $_SESSION['userid'] = $userId;
+            return true;
+        }else{
+            //no user exists, don't login and return false
+            return false;
+        }
+    }
 }
