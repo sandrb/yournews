@@ -20,6 +20,11 @@ class frontend {
 
     function showLogin(){
         global $users;
-        print_r($users->allUsers());
+        if($_POST['login'] == "Login"){
+            echo "login: ";
+            print_r($_POST);
+        }
+        $logins = $users->allUsers();
+        include("templates/login.php");
     }
 }
