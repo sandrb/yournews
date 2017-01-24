@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 24 jan 2017 om 18:53
+-- Gegenereerd op: 24 jan 2017 om 19:10
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -5381,17 +5381,31 @@ INSERT INTO `stop_words` (`id`, `varchar`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL
+  `username` varchar(255) NOT NULL,
+  `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `users`
 --
 
-INSERT INTO `users` (`id`, `username`) VALUES
-(1, 'user1'),
-(2, 'user2'),
-(3, 'user3');
+INSERT INTO `users` (`id`, `username`, `last_update`) VALUES
+(1, 'user1', NULL),
+(2, 'user2', NULL),
+(3, 'user3', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `user_keywords`
+--
+
+CREATE TABLE `user_keywords` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `keyword` varchar(255) NOT NULL,
+  `weight` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -5443,6 +5457,13 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexen voor tabel `user_keywords`
+--
+ALTER TABLE `user_keywords`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
@@ -5455,7 +5476,7 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT voor een tabel `article_keywords`
 --
 ALTER TABLE `article_keywords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77054;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100760;
 --
 -- AUTO_INCREMENT voor een tabel `forbidden_links`
 --
@@ -5470,7 +5491,7 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6807;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6809;
 --
 -- AUTO_INCREMENT voor een tabel `stop_words`
 --
@@ -5481,6 +5502,11 @@ ALTER TABLE `stop_words`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT voor een tabel `user_keywords`
+--
+ALTER TABLE `user_keywords`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --
@@ -5502,6 +5528,12 @@ ALTER TABLE `article_keywords`
 --
 ALTER TABLE `forbidden_links`
   ADD CONSTRAINT `forbidden_links_ibfk_1` FOREIGN KEY (`input_site`) REFERENCES `input_sites` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Beperkingen voor tabel `user_keywords`
+--
+ALTER TABLE `user_keywords`
+  ADD CONSTRAINT `user_keywords_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

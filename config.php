@@ -16,7 +16,9 @@ class config {
 
     public $dbprefix = "";
 
-    public $ratio = 0.03;//percentage of total weight that a word must have to be an article keyword
+    //percentage of total weight that a word must have to be an article keyword
+    //higher value = less keywords per article, lower value = more keywords per article
+    public $ratio = 0.03;
 
     //online
     /*
