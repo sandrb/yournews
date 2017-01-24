@@ -18,7 +18,6 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
 //sql connection
 require_once("sql.php");
-global $sql;
 $sql = new sql($config->dbhost, $config->dbuser, $config->dbpass, $config->dbname);
 
 //pageload
@@ -67,8 +66,10 @@ if($_GET['a'] == "files") {//something in files folder? simply include
     $admin = new admin();
     $admin->overview();
 }else{
-    //load frontend, frontend class handles the rest
+    //load frontend and user class, frontend class handles the rest
     require_once("frontend.php");
+    require_once("users.php");
+    $users = new users();
     $frontend = new frontend();
     $frontend->display();
 }

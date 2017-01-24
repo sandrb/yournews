@@ -11,10 +11,15 @@ class frontend {
         session_start();
         if(!isset($_SESSION['userid'])){
             //show login form
-            echo "Nog logged in!";
+            $this->showLogin();
         }else{
             //show news overview or article
             echo "Logged in";
         }
+    }
+
+    function showLogin(){
+        global $users;
+        print_r($users->allUsers());
     }
 }
