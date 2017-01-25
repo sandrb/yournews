@@ -12,8 +12,8 @@ $root = "http://hlddrole.nl/sander/yournews/"; //url to start with
 $request = "";//requested API
 $curminutes = (int) date("i");
 if($curminutes %3 == 0){
-    //initiate crawl every 3 minutes
-    $request = "crawl";
+    //initiate partial crawl every 3 minutes
+    $request = "crawl/partial";
 }else if($curminutes == 1){
     //do indexing once an hour
     $request = "indexing";
