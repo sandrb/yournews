@@ -32,15 +32,15 @@ if($_GET['a'] == "files") {//something in files folder? simply include
     require_once("crawler.php");
     $start = date("Y-m-d H:i:s");
     $crawler = new crawler();
-    if($_GET['b'] == "full"){//update all sites
-        $result = json_encode($crawler->fullUpdate());
+    if($_GET['b'] == "partial"){//update all sites
+        $result = json_encode($crawler->update());
     }else if($_GET['b'] == "single" && is_numeric($_GET['c'])){//do a single site
         $result = array();
         $result[] = $crawler->singleUpdate($_GET['c']);
         $result[] = $crawler->clearOld();
         $result = json_encode($result);
     }else{//regular update
-        $result = json_encode($crawler->update());
+        $result = json_encode($crawler->fullUpdate());
     }
     $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','crawl','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
