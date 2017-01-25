@@ -72,8 +72,8 @@ class crawler {
                 continue;//skip short urls or titles
             }
 
-            if(is_numeric($title) || strtolower($title) == "comments"){
-                continue;//skip numeric-only titles (some kind of ID, but not a title we want) and links to comment sections
+            if(is_numeric($title) || strtolower($title) == "comments" || strtolower($title) == "menu"){
+                continue;//skip numeric-only titles (some kind of ID, but not a title we want) and links to comment sections and menu's
             }
 
             if(strpos($url, 'javascript:') !== false){
@@ -122,6 +122,9 @@ class crawler {
                 //only store stuff if the link actually contains an article
                 $articlehtml = $articledom->saveHTML($articlenodes->item(0));//this check doesn't work 100%, so we have another filter in the next line
                 if(strlen($articlehtml) > 2 && substr("$articlehtml",0,9) != "<!DOCTYPE"){
+                    if($subdomain != null){
+                        $url = $subdomain . "." . $url;
+                    }
                     $sql->query("INSERT INTO `" . $config->dbprefix . "articles` ( `input_site`, `url`, `title`,  `raw_content`) VALUES ( '" . $site->id . "', '" . $sql->mysqli->real_escape_string($url) . "', '" . $sql->mysqli->real_escape_string($title) . "','" . $sql->mysqli->real_escape_string($articlehtml) . "');");
                     $return["amount"]++;
                 }
