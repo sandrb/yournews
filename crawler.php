@@ -62,6 +62,7 @@ class crawler {
 
         foreach($dom->getElementsByTagName("a") as $link){
             $title = $link->nodeValue;
+            $title = str_replace(array("\r", "\n"), '',trim($title));
             $url = $link->getAttribute("href");
 
             //we want relative urls, so strip this from any content we don't want
@@ -71,8 +72,8 @@ class crawler {
                 continue;//skip short urls or titles
             }
 
-            if(is_numeric($title)){
-                continue;//skip numeric-only titles (some kind of ID, but not a title we want)
+            if(is_numeric($title) || strtolower($title) == "comments"){
+                continue;//skip numeric-only titles (some kind of ID, but not a title we want) and links to comment sections
             }
 
             if(strpos($url, 'javascript:') !== false){
@@ -121,7 +122,6 @@ class crawler {
                 //only store stuff if the link actually contains an article
                 $articlehtml = $articledom->saveHTML($articlenodes->item(0));//this check doesn't work 100%, so we have another filter in the next line
                 if(strlen($articlehtml) > 2 && substr("$articlehtml",0,9) != "<!DOCTYPE"){
-                    $title = str_replace(array("\r", "\n"), '',trim($title));
                     $sql->query("INSERT INTO `" . $config->dbprefix . "articles` ( `input_site`, `url`, `title`,  `raw_content`) VALUES ( '" . $site->id . "', '" . $sql->mysqli->real_escape_string($url) . "', '" . $sql->mysqli->real_escape_string($title) . "','" . $sql->mysqli->real_escape_string($articlehtml) . "');");
                     $return["amount"]++;
                 }
