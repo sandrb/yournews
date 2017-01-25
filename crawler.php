@@ -68,7 +68,7 @@ class crawler {
             //we want relative urls, so strip this from any content we don't want
             $url = str_replace(array("http://","https://","www.",$site->domain), "" , $url);
 
-            if(strlen(trim($url)) <= 2 || strlen(trim($title)) <= 2){
+            if(strlen(trim($url)) <= 2 || strlen($title) <= 2){
                 continue;//skip short urls or titles
             }
 
@@ -125,9 +125,8 @@ class crawler {
                     //check for duplicates, sometimes the same article can be approached from different url's
                     $count = $sql->single_select("SELECT COUNT(*) FROM `" . $config->dbprefix . "articles` WHERE title = '" . $sql->mysqli->real_escape_string($title) . "' AND input_site = '" . $site->id . "'");
                     if($count == 0){
-                        if($subdomain != null){
-                            $url = $subdomain . "." . $url;
-                        }
+                        //add subdomain back to url
+                        $url = $subdomain . $url;
                         $sql->query("INSERT INTO `" . $config->dbprefix . "articles` ( `input_site`, `url`, `title`,  `raw_content`) VALUES ( '" . $site->id . "', '" . $sql->mysqli->real_escape_string($url) . "', '" . $sql->mysqli->real_escape_string($title) . "','" . $sql->mysqli->real_escape_string($articlehtml) . "');");
                         $return["amount"]++;
                     }
