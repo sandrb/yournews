@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 24 jan 2017 om 19:10
+-- Gegenereerd op: 25 jan 2017 om 15:44
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -31,6 +31,7 @@ CREATE TABLE `articles` (
   `input_site` int(11) NOT NULL,
   `url` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp on which is was discovered by our crawler, not when it was published',
+  `title` varchar(255) NOT NULL,
   `raw_content` text NOT NULL,
   `content_text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -5471,7 +5472,7 @@ ALTER TABLE `user_keywords`
 -- AUTO_INCREMENT voor een tabel `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27494;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28018;
 --
 -- AUTO_INCREMENT voor een tabel `article_keywords`
 --
@@ -5491,7 +5492,7 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6809;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6813;
 --
 -- AUTO_INCREMENT voor een tabel `stop_words`
 --
