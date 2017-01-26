@@ -8,22 +8,13 @@
  */
 class perform_matching{
 
-    public function update(){
+    public function update($userid = null){
         global $sql;
-        /*
-         SELECT
-	yournews_articles.id as article_id, yournews_users.id as userid, yournews_article_keywords.keyword as keyword, yournews_user_keywords.weight as weight
-FROM
-	yournews_articles,yournews_users,yournews_article_keywords,yournews_user_keywords
-WHERE
-	yournews_articles.timestamp >= yournews_users.last_update AND
-	yournews_article_keywords.article_id = yournews_articles.id AND
-	yournews_user_keywords.user_id = yournews_users.id AND
-	yournews_article_keywords.keyword = yournews_user_keywords.keyword
-ORDER BY
-	userid,article_id
-         */
         global $config;
+        $usercheck = "";
+        if($userid != null){
+            $usercheck = "AND " . $config->dbprefix . "users.id = '" . $sql->mysqli->real_escape_string($userid) . "'";
+        }
         $possible_matches = $sql->fetch_object("
         SELECT 
             " . $config->dbprefix . "articles.id as article_id, " . $config->dbprefix . "users.id as userid, " . $config->dbprefix . "article_keywords.keyword as keyword, " . $config->dbprefix . "user_keywords.weight as weight
@@ -33,9 +24,9 @@ ORDER BY
             " . $config->dbprefix . "articles.timestamp >= " . $config->dbprefix . "users.last_update AND
             " . $config->dbprefix . "article_keywords.article_id = " . $config->dbprefix . "articles.id AND
             " . $config->dbprefix . "user_keywords.user_id = " . $config->dbprefix . "users.id AND
-            " . $config->dbprefix . "article_keywords.keyword = " . $config->dbprefix . "user_keywords.keyword
+            " . $config->dbprefix . "article_keywords.keyword = " . $config->dbprefix . "user_keywords.keyword " . $usercheck . "
         ORDER BY userid,article_id");
-        $this->updateUsers();
+        $this->updateUsers($userid);
 
         $prev_article = -1;
         $prev_user = -1;
@@ -95,10 +86,15 @@ ORDER BY
     /**
      * updates the last_update of all users
      */
-    private function updateUsers(){
+    private function updateUsers($userid = null){
         global $sql;
         global $config;
-        $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = NOW()");
+        if($userid != null){
+
+            $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = NOW() WHERE id = " . $userid . " LIMIT 1");
+        }else{
+            $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = NOW()");
+        }
     }
 
 }

@@ -32,7 +32,7 @@ if($_GET['a'] == "files") {//something in files folder? simply include
     require_once("crawler.php");
     $start = date("Y-m-d H:i:s");
     $crawler = new crawler();
-    if($_GET['b'] == "partial"){//update all sites
+    if($_GET['b'] == "partial"){//update 3 sites at random
         $result = json_encode($crawler->update());
     }else if($_GET['b'] == "single" && is_numeric($_GET['c'])){//do a single site
         $result = array();
@@ -68,21 +68,37 @@ if($_GET['a'] == "files") {//something in files folder? simply include
     require_once("perform_matching.php");
     $start = date("Y-m-d H:i:s");
     $matching = new perform_matching();
-    $result = json_encode($matching->update());
+    if($_GET['b']){//single user only
+        $result = json_encode($matching->update($_GET['b']));
+    }else{//full update
+        $result = json_encode($matching->update());
+    }
     $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','perform_matching','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
 
 }else if($_GET['a'] == "reset_update"){
+    //resets timer on one/multiple users so that for the next crawl all
     require_once("users.php");
     $start = date("Y-m-d H:i:s");
     $users = new users();
-    if($_GET['b']){
+    if($_GET['b']){//single user only
         $result = json_encode($users->resetUpdate($_GET['b']));
     }else{
         $result = json_encode($users->resetUpdate(null));
     }
 
     $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','reset_update','" . $sql->mysqli->real_escape_string($result) . "');");
+    echo $result;
+
+}else if($_GET['a'] == "full_reset"){
+    //resets all users to standard configuration
+    require_once("users.php");
+    $start = date("Y-m-d H:i:s");
+    $users = new users();
+    $result = json_encode($users->fullReset());
+
+
+    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','full_reset','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
 
 }else if($_GET['a'] == "admin") {
