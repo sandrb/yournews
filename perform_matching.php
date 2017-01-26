@@ -8,40 +8,51 @@
  */
 class perform_matching{
 
-    public function upddate(){
+    public function update(){
         global $sql;
         global $config;
         $possible_matches = $sql->fetch_object("
         SELECT 
-            articles.id as article_id, users.id as userid, article_keywords.keyword as keyword
+            articles.id as article_id, users.id as userid, article_keywords.keyword as keyword, user_keywords.weight as weight
         FROM 
-            articles,users,article_keywords
+            articles,users,article_keywords,user_keywords
         WHERE 
             articles.timestamp >= users.last_update AND
             article_keywords.article_id = articles.id AND
-            keyword IN (SELECT keyword FROM user_keywords WHERE user_keywords.user_id = users.id)
-        ORDER BY users.id
+            user_keywords.user_id = users.id AND
+            article_keywords.keyword = user_keywords.keyword
+        ORDER BY users.id,article_id
         LIMIT 50");
 
-        $user_keywords = array();
-
+        $prev_article = -1;
+        $prev_user = -1;
+        $sum = 0;
         foreach($possible_matches as $possible_match){
-            if(!isset($user_keywords[$possible_match->userid])){
-                $user_keywords[$possible_match->userid] = $sql->fetch_object("SELECT keyword,weight FROM user_keywords WHERE user_id = " . $possible_match->userid);
-                $user_keywords[$possible_match->userid]["merged"] = null;
-                foreach($user_keywords[$possible_match->userid] as $combo){
-                    if(!empty($combo->keyword)){
-                        $user_keywords[$possible_match->userid]["merged"] .= '"' . $combo->keyword . '",';
-                    }
-                }
-                $user_keywords[$possible_match->userid]["merged"] = substr($user_keywords[$possible_match->userid]["merged"],0, strlen($user_keywords[$possible_match->userid]["merged"]) - 1);
-                $user_keywords[$possible_match->userid]["merged"] = "(" . $user_keywords[$possible_match->userid]["merged"] . ")";
+            if($prev_article != $possible_match->article_id){
+                //new article, add previous article as match if needed
+                $this->doPossibleMatch($prev_user,$prev_article,$sum);
+                //now reset sum for new possible match
+                $sum = 0;
             }
 
-            $article_keywords = $sql->fetch_object("SELECT keyword FROM article_keywords WHERE article_id = " . $possible_match->article_id . " AND keyword IN ". $user_keywords[$possible_match->userid]["merged"]);
-            echo "article keywords:";
-            print_r($article_keywords);
+            $sum += $possible_match->weight;
+            $prev_article = $possible_match->article_id;
+            $prev_user = $possible_match->userid;
+
         }
+    }
+
+    /**
+     * add match if weight is enought
+     */
+    private function doPossibleMatch($userId,$articleId,$totalweight){
+        global $sql;
+        global $config;
+        if($totalweight > $config->minweight){
+            //weight sufficient? add to matches table
+            $sql->query();//todo
+        }
+
     }
 
 }
