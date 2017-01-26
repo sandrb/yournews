@@ -82,7 +82,7 @@ if($_GET['a'] == "files") {//something in files folder? simply include
         $result = json_encode($users->resetUpdate(null));
     }
 
-    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','" . $sql->mysqli->real_escape_string($result) . "','None');");
+    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','reset_update','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
 
 }else if($_GET['a'] == "admin") {
