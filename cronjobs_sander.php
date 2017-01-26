@@ -21,7 +21,7 @@ if($curminutes %3 == 0){
     //do keyword_extraction once an hour after indexing
     $request = "keyword_extraction";
 }else{
-    $request = "fixtitles";
+
     //insert request here to let it occur more often
 }
 
