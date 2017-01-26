@@ -72,7 +72,7 @@ class crawler {
                 continue;//skip short urls or titles
             }
 
-            if(is_numeric($title) || strtolower($title) == "comments" || strtolower($title) == "menu"){
+            if(is_numeric($title) || strtolower($title) == "comments" || strtolower($title) == "menu" || strtolower($title) == "news"){
                 continue;//skip numeric-only titles (some kind of ID, but not a title we want) and links to comment sections and menu's
             }
 
