@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 26 jan 2017 om 04:26
+-- Gegenereerd op: 26 jan 2017 om 14:24
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -5403,9 +5403,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `last_update`) VALUES
-(1, 'user1', '2017-01-26 03:16:58'),
-(2, 'user2', '2017-01-26 03:16:58'),
-(3, 'user3', '2017-01-26 03:16:58');
+(1, 'user1', '2015-12-31 21:00:00'),
+(2, 'user2', '2015-12-31 21:00:00'),
+(3, 'user3', '2015-12-31 21:00:00');
 
 -- --------------------------------------------------------
 
@@ -5544,12 +5544,12 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6862;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6920;
 --
 -- AUTO_INCREMENT voor een tabel `matches`
 --
 ALTER TABLE `matches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1587;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3979;
 --
 -- AUTO_INCREMENT voor een tabel `stop_words`
 --
@@ -5559,7 +5559,7 @@ ALTER TABLE `stop_words`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT voor een tabel `user_keywords`
 --
@@ -5591,8 +5591,8 @@ ALTER TABLE `forbidden_links`
 -- Beperkingen voor tabel `matches`
 --
 ALTER TABLE `matches`
-  ADD CONSTRAINT `matches_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `matches_ibfk_2` FOREIGN KEY (`article`) REFERENCES `articles` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `matches_ibfk_2` FOREIGN KEY (`article`) REFERENCES `articles` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `matches_ibfk_3` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Beperkingen voor tabel `user_keywords`
