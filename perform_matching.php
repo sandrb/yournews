@@ -22,6 +22,7 @@ class perform_matching{
             user_keywords.user_id = users.id AND
             article_keywords.keyword = user_keywords.keyword
         ORDER BY users.id,article_id");
+        $this->updateUsers();
 
         $prev_article = -1;
         $prev_user = -1;
@@ -45,11 +46,6 @@ class perform_matching{
                 $sum = 0;
             }
 
-            if($prev_user != $possible_match->userid){
-                $this->updateUser($prev_user);
-            }
-            //end update
-
             $sum += $possible_match->weight;
             $prev_article = $possible_match->article_id;
             $prev_user = $possible_match->userid;
@@ -64,7 +60,6 @@ class perform_matching{
             $return[$prev_user]++;
         }
 
-        $this->updateUser($prev_user);
 
         return $return;
     }
@@ -85,12 +80,12 @@ class perform_matching{
     }
 
     /**
-     * updates the last_update of a user
+     * updates the last_update of all users
      */
-    private function updateUser($userid){
+    private function updateUsers(){
         global $sql;
         global $config;
-        $sql->query("UPDATE users SET last_update = NOW() WHERE id = " . $userid);
+        $sql->query("UPDATE users SET last_update = NOW()");
     }
 
 }

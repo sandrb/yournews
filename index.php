@@ -69,8 +69,16 @@ if($_GET['a'] == "files") {//something in files folder? simply include
     $start = date("Y-m-d H:i:s");
     $matching = new perform_matching();
     $result = json_encode($matching->update());
-    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','keyword_extraction','" . $sql->mysqli->real_escape_string($result) . "');");
+    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','perform_matching','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
+
+}else if($_GET['a'] == "reset_update"){
+    require_once("users.php");
+    $start = date("Y-m-d H:i:s");
+    $users = new users();
+    $users->resetUpdate(null);
+    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','reset_update','None');");
+    echo "update reseted";
 
 }else if($_GET['a'] == "admin") {
     //admin interface with some database overviews
