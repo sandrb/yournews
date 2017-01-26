@@ -19,11 +19,18 @@
     <!-- END header -->
     <!-- BEGIN content -->
     <div id="content">
-        <p class="details1">Articles</p>
         <?php
+        $drevdate = -1;
+
         foreach($articles as $article){
-            print_r($article);
-            echo "<hr>";
+            $realTimestamp = strtotime($article->timestamp);
+            $date = date("j F",$realTimestamp);
+            if($date != $prevdate){
+                echo '<p class="details1">' . $date . '</p>';
+                $prevdate = $date;
+            }
+
+            echo  date("G:i",$realTimestamp) . " | " . $article->id . " | " . $article->title . "<br>";
         }
         ?>
     </div>

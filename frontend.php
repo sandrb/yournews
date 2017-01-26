@@ -40,7 +40,7 @@ class frontend {
         global $sql;
         global $config;
         //die("SELECT id,input_site,url,timestamp,title FROM " . $config->dbprefix . "articles WHERE id IN(SELECT article FROM " . $config->dbprefix . "matches WHERE user = " . $curUser->id . ")");
-        $articles = $sql->fetch_object("SELECT id,input_site,url,timestamp,title FROM " . $config->dbprefix . "articles WHERE id IN(SELECT article FROM " . $config->dbprefix . "matches WHERE user = " . $curUser->id . ")");
+        $articles = $sql->fetch_object("SELECT id,input_site,url,timestamp,title FROM " . $config->dbprefix . "articles WHERE id IN(SELECT article FROM " . $config->dbprefix . "matches WHERE user = " . $curUser->id . ") ORDER BY timestamp DESC");
         include("templates/overview.php");
     }
 }
