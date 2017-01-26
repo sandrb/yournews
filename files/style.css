@@ -503,3 +503,9 @@ h2.title {
 .keyword_weight{
     float: right;
 }
+
+#info_block{
+    padding: 5px;
+    border: 1px solid #000000;
+    margin: 0 0 10px 0;
+}

@@ -20,7 +20,19 @@
     <!-- END header -->
     <!-- BEGIN content -->
     <div id="content">
-
+        <div id="info_block">
+            <h3>Article info</h3>
+            Title: <?php echo  $article->title; ?><br>
+            <?php
+                $subdomain = null;
+                if(strpos($url,".") !== false){
+                    list($subdomain,$url) = explode(".", $url);
+                    $subdomain .= ".";
+                }
+                $url = "http://" . $subdomain . $article->domain . $article->url;
+            ?>
+            URL: <a href="<?php echo $url; ?>" target="_blank"><?php echo $url; ?></a><br>
+        </div>
         <?php
         echo $article->title . "<p>";
         echo $article->raw_content;

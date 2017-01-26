@@ -52,8 +52,15 @@ class frontend {
     function showArticle($articleId){
         global $sql;
         global $config;
-        $article = $sql->fetch_object_single_row("SELECT * FROM " . $config->dbprefix . "articles WHERE id = '" . $sql->mysqli->real_escape_string($articleId) . "' LIMIT 1");
+        $article = $sql->fetch_object_single_row("SELECT
+                    " . $config->dbprefix . "articles.*,  " . $config->dbprefix . "input_sites.domain
+              FROM 
+                    " . $config->dbprefix . "articles," . $config->dbprefix . "input_sites 
+              WHERE 
+                    " . $config->dbprefix . "articles.id = '" . $sql->mysqli->real_escape_string($articleId) . "' AND 
+                    " . $config->dbprefix . "input_sites.id = " . $config->dbprefix . "articles.input_site 
+              LIMIT 1");
+        
         include("templates/article.php");
-
     }
 }
