@@ -63,6 +63,17 @@ if($_GET['a'] == "files") {//something in files folder? simply include
     $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','keyword_extraction','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
 
+}else if($_GET['a'] == "fixtitles"){
+    require_once("fixtitles.php");
+    $fixtitles = new fixtitles();
+    if($_GET['b'] == "export"){
+        echo $fixtitles->export();
+    }else{
+        $result = json_encode($fixtitles->update());
+        echo stripslashes($result);
+
+    }
+
 }else if($_GET['a'] == "admin") {
     //admin interface with some database overviews
     require_once("admin.php");
