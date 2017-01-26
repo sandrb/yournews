@@ -63,6 +63,15 @@ if($_GET['a'] == "files") {//something in files folder? simply include
     $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','keyword_extraction','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
 
+}else if($_GET['a'] == "perform_matching"){
+    //does article <-> user matching
+    require_once("perform_matching.php");
+    $start = date("Y-m-d H:i:s");
+    $matching = new perform_matching();
+    $result = json_encode($matching->upddate());
+    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','keyword_extraction','" . $sql->mysqli->real_escape_string($result) . "');");
+    echo $result;
+
 }else if($_GET['a'] == "admin") {
     //admin interface with some database overviews
     require_once("admin.php");
