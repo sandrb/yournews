@@ -21,16 +21,25 @@ class perform_matching{
             article_keywords.article_id = articles.id AND
             user_keywords.user_id = users.id AND
             article_keywords.keyword = user_keywords.keyword
-        ORDER BY users.id,article_id
-        LIMIT 50");
+        ORDER BY users.id,article_id");
 
         $prev_article = -1;
         $prev_user = -1;
         $sum = 0;
+        $return = array();
         foreach($possible_matches as $possible_match){
             if($prev_article != $possible_match->article_id){
                 //new article, add previous article as match if needed
-                $this->doPossibleMatch($prev_user,$prev_article,$sum);
+                if($this->doPossibleMatch($prev_user,$prev_article,$sum)){
+                    if(!isset($return[$prev_user])){
+                        //one match for this user
+                        $return[$prev_user] = 1;
+                    }else{
+                        //one more match for this user
+                        $return[$prev_user]++;
+                    }
+                }
+
                 //now reset sum for new possible match
                 $sum = 0;
             }
@@ -40,6 +49,17 @@ class perform_matching{
             $prev_user = $possible_match->userid;
 
         }
+        //new article, add previous article as match if needed
+        if($this->doPossibleMatch($prev_user,$prev_article,$sum)){
+            if(!isset($return[$prev_user])){
+                //one match for this user
+                $return[$prev_user] = 1;
+            }else{
+                //one more match for this user
+                $return[$prev_user]++;
+            }
+        }
+        return $return;
     }
 
     /**
@@ -48,11 +68,13 @@ class perform_matching{
     private function doPossibleMatch($userId,$articleId,$totalweight){
         global $sql;
         global $config;
-        if($totalweight > $config->minweight){
+        if($totalweight > $config->minweight) {
             //weight sufficient? add to matches table
-            $sql->query();//todo
+            $sql->query("INSERT INTO `matches` (`user`, `article`) VALUES ('" . $userId . "', '" . $articleId . "');");
+            return true;
+        }else{
+            return false;
         }
-
     }
 
 }
