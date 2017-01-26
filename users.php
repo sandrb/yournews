@@ -36,8 +36,10 @@ class users {
         if($userId == null){
             $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = '2015-12-31 23:00:00'");
         }else{
-            $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = '2015-12-31 23:00:00' WHERE users.id = '" . $userId . "'");
+            $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = '2015-12-31 23:00:00' WHERE users.id = '" . $sql->mysqli->real_escape_string($userId) . "' LIMIT 1");
         }
-
+        $return = array();
+        $return["affected_users"] = $sql->mysqli->affected_rows;
+        return $return;
     }
 }

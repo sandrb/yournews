@@ -76,9 +76,14 @@ if($_GET['a'] == "files") {//something in files folder? simply include
     require_once("users.php");
     $start = date("Y-m-d H:i:s");
     $users = new users();
-    $users->resetUpdate(null);
-    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','reset_update','None');");
-    echo "update reseted";
+    if($_GET['b']){
+        $result = json_encode($users->resetUpdate($_GET['b']));
+    }else{
+        $result = json_encode($users->resetUpdate(null));
+    }
+
+    $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','" . $sql->mysqli->real_escape_string($result) . "','None');");
+    echo $result;
 
 }else if($_GET['a'] == "admin") {
     //admin interface with some database overviews

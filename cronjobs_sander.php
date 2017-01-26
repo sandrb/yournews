@@ -20,6 +20,11 @@ if($curminutes %3 == 0){
 }else if($curminutes == 4){
     //do keyword_extraction once an hour after indexing
     $request = "keyword_extraction";
+
+}else if($curminutes == 7){
+    //peform matching with updated articles
+    $request = "perform_matching";
+
 }else{
 
     //insert request here to let it occur more often
