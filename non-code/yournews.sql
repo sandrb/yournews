@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 26 jan 2017 om 02:20
+-- Gegenereerd op: 26 jan 2017 om 03:04
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -5383,7 +5383,7 @@ INSERT INTO `stop_words` (`id`, `varchar`) VALUES
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `last_update` timestamp NULL DEFAULT NULL
+  `last_update` timestamp NULL DEFAULT '2015-12-31 23:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -5391,9 +5391,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `last_update`) VALUES
-(1, 'user1', NULL),
-(2, 'user2', NULL),
-(3, 'user3', NULL);
+(1, 'user1', '2015-12-31 23:00:00'),
+(2, 'user2', '2015-12-31 23:00:00'),
+(3, 'user3', '2015-12-31 23:00:00');
 
 -- --------------------------------------------------------
 
@@ -5534,7 +5534,7 @@ ALTER TABLE `stop_words`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT voor een tabel `user_keywords`
 --
