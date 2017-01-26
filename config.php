@@ -20,6 +20,15 @@ class config {
     //higher value = less keywords per article, lower value = more keywords per article
     public $ratio = 0.03;
 
+    //max weight of all the keywords of a user combined
+    public $totalweight = 1000;
+
+    /*
+     * each user <-> article combination get's a weight based on the keyword matches
+     * here you can specify the minimum weight needed for an article to actually appear in the newsfeed
+     */
+    public $minweight = 100;
+
     //online
     /*
     public $dbhost = "db6";

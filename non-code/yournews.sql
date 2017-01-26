@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 25 jan 2017 om 15:44
+-- Gegenereerd op: 26 jan 2017 om 02:20
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -5409,6 +5409,38 @@ CREATE TABLE `user_keywords` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Gegevens worden geëxporteerd voor tabel `user_keywords`
+--
+
+INSERT INTO `user_keywords` (`id`, `user_id`, `keyword`, `weight`) VALUES
+(1, 1, 'trump', 167),
+(2, 1, 'elections', 167),
+(3, 1, 'president', 166),
+(4, 1, 'clinton', 167),
+(5, 1, 'votes', 166),
+(6, 1, 'obama', 166),
+(7, 2, 'samsung', 100),
+(8, 2, 'apple', 100),
+(9, 2, 'microsoft', 100),
+(10, 2, 'google', 100),
+(11, 2, 'htc', 100),
+(12, 2, 'philips', 100),
+(13, 2, 'facebook', 100),
+(14, 2, 'dell', 100),
+(15, 2, 'sony', 100),
+(16, 2, 'huawai', 100),
+(27, 3, 'minaj', 101),
+(28, 3, 'hilton', 100),
+(29, 3, 'bieber', 100),
+(30, 3, 'pitt', 100),
+(31, 3, 'gomez', 100),
+(32, 3, 'oscar', 100),
+(33, 3, 'weeknd', 100),
+(34, 3, 'mariah', 100),
+(35, 3, 'kardashian', 100),
+(36, 3, 'Kanye', 0);
+
+--
 -- Indexen voor geëxporteerde tabellen
 --
 
@@ -5472,12 +5504,12 @@ ALTER TABLE `user_keywords`
 -- AUTO_INCREMENT voor een tabel `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28018;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28588;
 --
 -- AUTO_INCREMENT voor een tabel `article_keywords`
 --
 ALTER TABLE `article_keywords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100760;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183776;
 --
 -- AUTO_INCREMENT voor een tabel `forbidden_links`
 --
@@ -5492,7 +5524,7 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6813;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6825;
 --
 -- AUTO_INCREMENT voor een tabel `stop_words`
 --
@@ -5507,7 +5539,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `user_keywords`
 --
 ALTER TABLE `user_keywords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --
