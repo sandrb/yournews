@@ -10,18 +10,31 @@ class perform_matching{
 
     public function update(){
         global $sql;
+        /*
+         SELECT
+	yournews_articles.id as article_id, yournews_users.id as userid, yournews_article_keywords.keyword as keyword, yournews_user_keywords.weight as weight
+FROM
+	yournews_articles,yournews_users,yournews_article_keywords,yournews_user_keywords
+WHERE
+	yournews_articles.timestamp >= yournews_users.last_update AND
+	yournews_article_keywords.article_id = yournews_articles.id AND
+	yournews_user_keywords.user_id = yournews_users.id AND
+	yournews_article_keywords.keyword = yournews_user_keywords.keyword
+ORDER BY
+	userid,article_id
+         */
         global $config;
         $possible_matches = $sql->fetch_object("
         SELECT 
-            articles.id as article_id, users.id as userid, article_keywords.keyword as keyword, user_keywords.weight as weight
+            " . $config->dbprefix . "articles.id as article_id, " . $config->dbprefix . "users.id as userid, " . $config->dbprefix . "article_keywords.keyword as keyword, " . $config->dbprefix . "user_keywords.weight as weight
         FROM 
-            articles,users,article_keywords,user_keywords
+            " . $config->dbprefix . "articles," . $config->dbprefix . "users," . $config->dbprefix . "article_keywords," . $config->dbprefix . "user_keywords
         WHERE 
-            articles.timestamp >= users.last_update AND
-            article_keywords.article_id = articles.id AND
-            user_keywords.user_id = users.id AND
-            article_keywords.keyword = user_keywords.keyword
-        ORDER BY users.id,article_id");
+            " . $config->dbprefix . "articles.timestamp >= " . $config->dbprefix . "users.last_update AND
+            " . $config->dbprefix . "article_keywords.article_id = " . $config->dbprefix . "articles.id AND
+            " . $config->dbprefix . "user_keywords.user_id = " . $config->dbprefix . "users.id AND
+            " . $config->dbprefix . "article_keywords.keyword = " . $config->dbprefix . "user_keywords.keyword
+        ORDER BY userid,article_id");
         $this->updateUsers();
 
         $prev_article = -1;
@@ -72,7 +85,7 @@ class perform_matching{
         global $config;
         if($totalweight > $config->minweight) {
             //weight sufficient? add to matches table
-            $sql->query("INSERT INTO `matches` (`user`, `article`) VALUES ('" . $userId . "', '" . $articleId . "');");
+            $sql->query("INSERT INTO `" . $config->dbprefix . "matches` (`user`, `article`) VALUES ('" . $userId . "', '" . $articleId . "');");
             return true;
         }else{
             return false;
@@ -85,7 +98,7 @@ class perform_matching{
     private function updateUsers(){
         global $sql;
         global $config;
-        $sql->query("UPDATE users SET last_update = NOW()");
+        $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = NOW()");
     }
 
 }

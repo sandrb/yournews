@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 26 jan 2017 om 03:04
+-- Gegenereerd op: 26 jan 2017 om 04:26
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -198,6 +198,18 @@ CREATE TABLE `logs` (
   `start` timestamp NULL DEFAULT NULL,
   `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `output` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `matches`
+--
+
+CREATE TABLE `matches` (
+  `id` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  `article` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -5391,9 +5403,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `last_update`) VALUES
-(1, 'user1', '2015-12-31 23:00:00'),
-(2, 'user2', '2015-12-31 23:00:00'),
-(3, 'user3', '2015-12-31 23:00:00');
+(1, 'user1', '2017-01-26 03:16:58'),
+(2, 'user2', '2017-01-26 03:16:58'),
+(3, 'user3', '2017-01-26 03:16:58');
 
 -- --------------------------------------------------------
 
@@ -5478,6 +5490,14 @@ ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexen voor tabel `matches`
+--
+ALTER TABLE `matches`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user` (`user`),
+  ADD KEY `article` (`article`);
+
+--
 -- Indexen voor tabel `stop_words`
 --
 ALTER TABLE `stop_words`
@@ -5524,7 +5544,12 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6825;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6862;
+--
+-- AUTO_INCREMENT voor een tabel `matches`
+--
+ALTER TABLE `matches`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1587;
 --
 -- AUTO_INCREMENT voor een tabel `stop_words`
 --
@@ -5561,6 +5586,13 @@ ALTER TABLE `article_keywords`
 --
 ALTER TABLE `forbidden_links`
   ADD CONSTRAINT `forbidden_links_ibfk_1` FOREIGN KEY (`input_site`) REFERENCES `input_sites` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Beperkingen voor tabel `matches`
+--
+ALTER TABLE `matches`
+  ADD CONSTRAINT `matches_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `matches_ibfk_2` FOREIGN KEY (`article`) REFERENCES `articles` (`id`) ON DELETE CASCADE;
 
 --
 -- Beperkingen voor tabel `user_keywords`
