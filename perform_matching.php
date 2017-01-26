@@ -28,6 +28,7 @@ class perform_matching{
         $sum = 0;
         $return = array();
         foreach($possible_matches as $possible_match){
+            //start update
             if($prev_article != $possible_match->article_id){
                 //new article, add previous article as match if needed
                 if($this->doPossibleMatch($prev_user,$prev_article,$sum)){
@@ -44,26 +45,32 @@ class perform_matching{
                 $sum = 0;
             }
 
+            if($prev_user != $possible_match->userid){
+                $this->updateUser($prev_user);
+            }
+            //end update
+
             $sum += $possible_match->weight;
             $prev_article = $possible_match->article_id;
             $prev_user = $possible_match->userid;
 
         }
-        //new article, add previous article as match if needed
-        if($this->doPossibleMatch($prev_user,$prev_article,$sum)){
-            if(!isset($return[$prev_user])){
-                //one match for this user
-                $return[$prev_user] = 1;
-            }else{
-                //one more match for this user
-                $return[$prev_user]++;
-            }
+        //perform the same udpate at the end
+        if(!isset($return[$prev_user])){
+            //one match for this user
+            $return[$prev_user] = 1;
+        }else{
+            //one more match for this user
+            $return[$prev_user]++;
         }
+
+        $this->updateUser($prev_user);
+
         return $return;
     }
 
     /**
-     * add match if weight is enought
+     * add match if weight is enough
      */
     private function doPossibleMatch($userId,$articleId,$totalweight){
         global $sql;
@@ -75,6 +82,15 @@ class perform_matching{
         }else{
             return false;
         }
+    }
+
+    /**
+     * updates the last_update of a user
+     */
+    private function updateUser($userid){
+        global $sql;
+        global $config;
+        $sql->query("UPDATE users SET last_update = NOW() WHERE id = " . $userid);
     }
 
 }
