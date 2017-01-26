@@ -30,6 +30,16 @@ class users {
         }
     }
 
+    function curUser(){
+        global $sql;
+        global $config;
+        if(isset($_SESSION['userid'])){
+            return $sql->fetch_object_single_row("SELECT * FROM " . $config->dbprefix . "users WHERE id = '" . $sql->mysqli->real_escape_string($_SESSION['userid']) . "' LIMIT 1");
+        }else{
+            return null;
+        }
+    }
+
     function resetUpdate($userId = null){
         global $sql;
         global $config;

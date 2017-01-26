@@ -19,8 +19,13 @@
     <!-- END header -->
     <!-- BEGIN content -->
     <div id="content">
-        <p class="details1">March 14, 2009 / <a href="#">Internet Marketing</a></p>
-        Links here
+        <p class="details1">Articles</p>
+        <?php
+        foreach($articles as $article){
+            print_r($article);
+            echo "<hr>";
+        }
+        ?>
     </div>
     <!-- END content -->
     <!-- BEGIN sidebar -->
@@ -90,7 +95,7 @@
 <!-- END wrapper -->
 <!-- BEGIN footer -->
 <div id="footer">
-    <p>Copyright &copy; 2009 - <a href="#">Website Name</a> &middot; All Rights Reserved | Template by: <a href="http://www.wpthemedesigner.com/">WordPress Designer</a> | Get More <a href="#">Free CSS Templates</a> </p>
+    <p>Copyright &copy; <?php echo date("Y"); ?> - YourNews &middot; All Rights Reserved | Template by: <a href="http://www.wpthemedesigner.com/">WordPress Designer</a> </p>
 </div>
 <!-- END footer -->
 </body>
