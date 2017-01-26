@@ -14,8 +14,12 @@ class frontend {
             //show login form
             $this->showLogin();
         }else{
-            //show news overview
-            $this->showOverview($curUser);
+            if($_GET['a'] == "article" && is_numeric($_GET['b'])){
+                $this->showArticle($_GET['b']);
+            }else{
+                //show news overview
+                $this->showOverview($curUser);
+            }
         }
     }
 
@@ -43,5 +47,13 @@ class frontend {
         $articles = $sql->fetch_object("SELECT id,input_site,url,timestamp,title FROM " . $config->dbprefix . "articles WHERE id IN(SELECT article FROM " . $config->dbprefix . "matches WHERE user = " . $curUser->id . ") ORDER BY timestamp DESC");
         $keywords = $sql->fetch_object("SELECT id, keyword, weight FROM " . $config->dbprefix . "user_keywords WHERE user_id = '" .  $curUser->id  . "' ORDER BY weight DESC");
         include("templates/overview.php");
+    }
+
+    function showArticle($articleId){
+        global $sql;
+        global $config;
+        $article = $sql->fetch_object_single_row("SELECT * FROM " . $config->dbprefix . "articles WHERE id = '" . $sql->mysqli->real_escape_string($articleId) . "' LIMIT 1");
+        include("templates/article.php");
+
     }
 }

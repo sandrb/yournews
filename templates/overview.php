@@ -31,7 +31,7 @@
                 $prevdate = $date;
             }
 
-            echo  date("G:i",$realTimestamp) . " | " . $article->id . " | " . $article->title . "<br>";
+            echo  date("G:i",$realTimestamp) . ' | <a href="' . $config->root . 'article/' . $article->id . '">' . $article->title . '</a><br>';
         }
         ?>
     </div>
