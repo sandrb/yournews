@@ -52,6 +52,8 @@ class frontend {
     function showArticle($articleId){
         global $sql;
         global $config;
+        global $users;
+        $curUser = $users->curUser();
         $article = $sql->fetch_object_single_row("SELECT
                     " . $config->dbprefix . "articles.*,  " . $config->dbprefix . "input_sites.domain
               FROM 
@@ -60,7 +62,12 @@ class frontend {
                     " . $config->dbprefix . "articles.id = '" . $sql->mysqli->real_escape_string($articleId) . "' AND 
                     " . $config->dbprefix . "input_sites.id = " . $config->dbprefix . "articles.input_site 
               LIMIT 1");
-        
+        $article_keywords = $sql->fetch_object("SELECT keyword FROM " . $config->dbprefix . "article_keywords WHERE article_id = '" . $sql->mysqli->real_escape_string($articleId) . "'");
+        $user_keywords = $sql->fetch_object("SELECT keyword FROM " . $config->dbprefix . "user_keywords WHERE user_id = '" . $sql->mysqli->real_escape_string($curUser->id) . "'");
+        $user_keywords_array = array();
+        foreach($user_keywords as $user_keyword){
+            $user_keywords_array[] = $user_keyword->keyword;
+        }
         include("templates/article.php");
     }
 }

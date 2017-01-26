@@ -22,7 +22,7 @@
     <div id="content">
         <div id="info_block">
             <h3>Article info</h3>
-            Title: <?php echo  $article->title; ?><br>
+            <b>Title</b>: <?php echo  $article->title; ?><br>
             <?php
                 $subdomain = null;
                 if(strpos($url,".") !== false){
@@ -31,7 +31,21 @@
                 }
                 $url = "http://" . $subdomain . $article->domain . $article->url;
             ?>
-            URL: <a href="<?php echo $url; ?>" target="_blank"><?php echo $url; ?></a><br>
+            <b>URL</b>: <a href="<?php echo $url; ?>" target="_blank"><?php echo $url; ?></a><br>
+            <b>Keywords</b>:
+            <?php
+                foreach($article_keywords as $nr => $article_keyword){
+                    if(in_array($article_keyword->keyword,$user_keywords_array)){
+                        echo "<b>" . $article_keyword->keyword . "</b>";
+
+                    }else{
+                        echo $article_keyword->keyword;
+                    }
+                    if($nr != sizeof($article_keywords) - 1){
+                        echo ", ";
+                    }
+                }
+            ?>
         </div>
         <?php
         echo $article->title . "<p>";
