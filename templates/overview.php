@@ -38,63 +38,18 @@
     <!-- END content -->
     <!-- BEGIN sidebar -->
     <div id="sidebar">
-        <!-- begin search -->
-        <form action="#">
-            <input type="text" name="s" id="s" value="" />
-            <button type="submit">Search</button>
-        </form>
-        <!-- end search -->
         <!-- begin popular articles -->
         <div class="box">
-            <h2>Popular Articles</h2>
+            <h2>Your keywords and their weights</h2>
             <ul>
-                <li><a href="#">Lorem Ipsum Dolor Site Amet Veritas Vos</a></li>
-                <li><a href="#">Lorem Ipsum Dolor Site Amet Veritas Vos</a></li>
-                <li><a href="#">Lorem Ipsum Dolor Site Amet Veritas Vos</a></li>
-                <li><a href="#">Lorem Ipsum Dolor Site Amet Veritas Vos</a></li>
-                <li><a href="#">Lorem Ipsum Dolor Site Amet Veritas Vos</a></li>
+                <?php
+                foreach($keywords as $keyword){
+                    echo '<li>' . $keyword->keyword . ' ' . $keyword->weight . '</li>';
+                }
+                ?>
             </ul>
-        </div>
-        <!-- end popular articles -->
-        <!-- begin flickr rss -->
-        <div class="box">
-            <h2>Flickr RSS</h2>
-            <p class="flickr"> <a href="#"><img src="files/images/thumb02.jpg" alt="" /></a> <a href="#"><img src="files/images/thumb03.jpg" alt="" /></a> <a href="#"><img src="files/images/thumb04.jpg" alt="" /></a> <a href="#"><img src="files/images/thumb05.jpg" alt="" /></a> <a href="#"><img src="files/images/thumb06.jpg" alt="" /></a> <a href="#"><img src="files/images/thumb07.jpg" alt="" /></a> </p>
-        </div>
-        <!-- end flickr rss -->
-        <!-- begin featured video -->
-        <div class="box">
-            <h2>Featured Video</h2>
-            <div class="video"><img src="files/images/video.jpg" alt="" /></div>
-        </div>
-        <!-- end featured video -->
-        <!-- BEGIN left -->
-        <div class="l">
-            <!-- begin categories -->
-            <div class="box">
-                <h2>Categories</h2>
-                <ul>
-                    <li><a href="#">Advertising</a></li>
-                    <li><a href="#">Entertainment</a></li>
-                    <li><a href="#">Fashion</a></li>
-                </ul>
-            </div>
-            <!-- end categories-->
-        </div>
-        <!-- END left -->
-        <!-- BEGIN right -->
-        <div class="r">
-            <!-- begin archives -->
-            <div class="box">
-                <h2>Archives</h2>
-                <ul>
-                    <li><a href="#">March 2009</a></li>
-                    <li><a href="#">February 2009</a></li>
-                    <li><a href="#">January 2009</a></li>
-                    <li><a href="#">December 2008</a></li>
-                </ul>
-            </div>
-            <!-- end archives -->
+            <p>
+            After making changes, please wait a few seconds, then do a frefresh and your newsfeed should be updated.
         </div>
         <!-- END right -->
     </div>

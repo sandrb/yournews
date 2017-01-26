@@ -41,6 +41,7 @@ class frontend {
         global $config;
         //die("SELECT id,input_site,url,timestamp,title FROM " . $config->dbprefix . "articles WHERE id IN(SELECT article FROM " . $config->dbprefix . "matches WHERE user = " . $curUser->id . ")");
         $articles = $sql->fetch_object("SELECT id,input_site,url,timestamp,title FROM " . $config->dbprefix . "articles WHERE id IN(SELECT article FROM " . $config->dbprefix . "matches WHERE user = " . $curUser->id . ") ORDER BY timestamp DESC");
+        $keywords = $sql->fetch_object("SELECT id, keyword, weight FROM " . $config->dbprefix . "user_keywords WHERE user_id = '" .  $curUser->id  . "' ORDER BY weight DESC");
         include("templates/overview.php");
     }
 }
