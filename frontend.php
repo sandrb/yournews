@@ -12,8 +12,8 @@ class frontend {
             //show login form
             $this->showLogin();
         }else{
-            //show news overview or article
-            $this->showFrontend();
+            //show news overview
+            $this->showOverview();
         }
     }
 
@@ -34,9 +34,10 @@ class frontend {
         }
     }
 
-    function showFrontend(){
+    function showOverview(){
         global $sql;
         global $config;
+
         include("templates/overview.php");
     }
 }

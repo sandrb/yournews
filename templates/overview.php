@@ -15,107 +15,12 @@
             <li><a href="<?php echo $config->root ?>">Home</a></li>
         </ul>
         <h1><a href="#">YourNews</a></h1>
-        <div class="ad"><a href="#"><img src="files/images/ad468x60.gif" alt="" /></a></div>
     </div>
     <!-- END header -->
     <!-- BEGIN content -->
     <div id="content">
-        <!-- begin post -->
-        <div class="post">
-            <p class="details1">March 14, 2009 / <a href="#">Internet Marketing</a></p>
-            <div class="buffer">
-                <div class="content"> <a href="#"><img src="files/images/thumb01.jpg" /></a>
-                    <h2><a href="#">Lorem Ipsum Dolor Veni Quam Sit Amet Dolor</a></h2>
-                    <p>Pulvinar non, porta vitae; ante. Donec venenatis, est nec aliquam pulvinar, sem quam malesuada enim, et molestie felis risus a urna? Stera ump libero risus mauris. Donec veninatis sem quam. Lorem ipsum dolor sit amet culpa vera vos...</p>
-                </div>
-                <p class="details2"><a href="#">8 Comments</a> / <a href="#">Read More</a></p>
-            </div>
-        </div>
-        <!-- end post -->
-        <!-- begin post -->
-        <div class="post">
-            <p class="details1">March 14, 2009 / <a href="#">Internet Marketing</a></p>
-            <div class="buffer">
-                <div class="content"> <a href="#"><img src="files/images/thumb01.jpg" /></a>
-                    <h2><a href="#">Lorem Ipsum Dolor Veni Quam Sit Amet Dolor</a></h2>
-                    <p>Pulvinar non, porta vitae; ante. Donec venenatis, est nec aliquam pulvinar, sem quam malesuada enim, et molestie felis risus a urna? Stera ump libero risus mauris. Donec veninatis sem quam. Lorem ipsum dolor sit amet culpa vera vos...</p>
-                </div>
-                <p class="details2"><a href="#">8 Comments</a> / <a href="#">Read More</a></p>
-            </div>
-        </div>
-        <!-- end post -->
-        <!-- begin post -->
-        <div class="post">
-            <p class="details1">March 14, 2009 / <a href="#">Internet Marketing</a></p>
-            <div class="buffer">
-                <div class="content"> <a href="#"><img src="files/images/thumb01.jpg" /></a>
-                    <h2><a href="#">Lorem Ipsum Dolor Veni Quam Sit Amet Dolor</a></h2>
-                    <p>Pulvinar non, porta vitae; ante. Donec venenatis, est nec aliquam pulvinar, sem quam malesuada enim, et molestie felis risus a urna? Stera ump libero risus mauris. Donec veninatis sem quam. Lorem ipsum dolor sit amet culpa vera vos...</p>
-                </div>
-                <p class="details2"><a href="#">8 Comments</a> / <a href="#">Read More</a></p>
-            </div>
-        </div>
-        <!-- end post -->
-        <!-- begin post -->
-        <div class="post">
-            <p class="details1">March 14, 2009 / <a href="#">Internet Marketing</a></p>
-            <div class="buffer">
-                <div class="content"> <a href="#"><img src="files/images/thumb01.jpg" /></a>
-                    <h2><a href="#">Lorem Ipsum Dolor Veni Quam Sit Amet Dolor</a></h2>
-                    <p>Pulvinar non, porta vitae; ante. Donec venenatis, est nec aliquam pulvinar, sem quam malesuada enim, et molestie felis risus a urna? Stera ump libero risus mauris. Donec veninatis sem quam. Lorem ipsum dolor sit amet culpa vera vos...</p>
-                </div>
-                <p class="details2"><a href="#">8 Comments</a> / <a href="#">Read More</a></p>
-            </div>
-        </div>
-        <!-- end post -->
-        <!-- begin post -->
-        <div class="post">
-            <p class="details1">March 14, 2009 / <a href="#">Internet Marketing</a></p>
-            <div class="buffer">
-                <div class="content"> <a href="#"><img src="files/images/thumb01.jpg" /></a>
-                    <h2><a href="#">Lorem Ipsum Dolor Veni Quam Sit Amet Dolor</a></h2>
-                    <p>Pulvinar non, porta vitae; ante. Donec venenatis, est nec aliquam pulvinar, sem quam malesuada enim, et molestie felis risus a urna? Stera ump libero risus mauris. Donec veninatis sem quam. Lorem ipsum dolor sit amet culpa vera vos...</p>
-                </div>
-                <p class="details2"><a href="#">8 Comments</a> / <a href="#">Read More</a></p>
-            </div>
-        </div>
-        <!-- end post -->
-        <!-- begin post -->
-        <div class="post">
-            <p class="details1">March 14, 2009 / <a href="#">Internet Marketing</a></p>
-            <div class="buffer">
-                <div class="content"> <a href="#"><img src="files/images/thumb01.jpg" /></a>
-                    <h2><a href="#">Lorem Ipsum Dolor Veni Quam Sit Amet Dolor</a></h2>
-                    <p>Pulvinar non, porta vitae; ante. Donec venenatis, est nec aliquam pulvinar, sem quam malesuada enim, et molestie felis risus a urna? Stera ump libero risus mauris. Donec veninatis sem quam. Lorem ipsum dolor sit amet culpa vera vos...</p>
-                </div>
-                <p class="details2"><a href="#">8 Comments</a> / <a href="#">Read More</a></p>
-            </div>
-        </div>
-        <!-- end post -->
-        <!-- begin post -->
-        <div class="post">
-            <p class="details1">March 14, 2009 / <a href="#">Internet Marketing</a></p>
-            <div class="buffer">
-                <div class="content"> <a href="#"><img src="files/images/thumb01.jpg" /></a>
-                    <h2><a href="#">Lorem Ipsum Dolor Veni Quam Sit Amet Dolor</a></h2>
-                    <p>Pulvinar non, porta vitae; ante. Donec venenatis, est nec aliquam pulvinar, sem quam malesuada enim, et molestie felis risus a urna? Stera ump libero risus mauris. Donec veninatis sem quam. Lorem ipsum dolor sit amet culpa vera vos...</p>
-                </div>
-                <p class="details2"><a href="#">8 Comments</a> / <a href="#">Read More</a></p>
-            </div>
-        </div>
-        <!-- end post -->
-        <!-- begin post -->
-        <div class="post">
-            <p class="details1">March 14, 2009 / <a href="#">Internet Marketing</a></p>
-            <div class="buffer">
-                <div class="content"> <a href="#"><img src="files/images/thumb01.jpg" /></a>
-                    <h2><a href="#">Lorem Ipsum Dolor Veni Quam Sit Amet Dolor</a></h2>
-                    <p>Pulvinar non, porta vitae; ante. Donec venenatis, est nec aliquam pulvinar, sem quam malesuada enim, et molestie felis risus a urna? Stera ump libero risus mauris. Donec veninatis sem quam. Lorem ipsum dolor sit amet culpa vera vos...</p>
-                </div>
-                <p class="details2"><a href="#">8 Comments</a> / <a href="#">Read More</a></p>
-            </div>
-        </div>
-        <!-- end post -->
+        <p class="details1">March 14, 2009 / <a href="#">Internet Marketing</a></p>
+        Links here
     </div>
     <!-- END content -->
     <!-- BEGIN sidebar -->
