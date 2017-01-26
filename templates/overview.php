@@ -13,6 +13,7 @@
     <div id="header">
         <ul>
             <li><a href="<?php echo $config->root ?>">Home</a></li>
+            <li><a href="<?php echo $config->root ?>users/logout">Logout</a></li>
         </ul>
         <h1><a href="#">YourNews</a></h1>
     </div>

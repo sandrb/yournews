@@ -101,6 +101,14 @@ if($_GET['a'] == "files") {//something in files folder? simply include
     $sql->query("INSERT INTO `" . $config->dbprefix . "logs` (`start`,`run`,`output`) VALUES ('" . $start . "','full_reset','" . $sql->mysqli->real_escape_string($result) . "');");
     echo $result;
 
+}else if($_GET['a'] == "users") {
+    require_once("users.php");
+    $users = new users();
+    if($_GET['b'] == "logout"){
+        $users->logout();
+    }
+
+
 }else if($_GET['a'] == "admin") {
     //admin interface with some database overviews
     require_once("admin.php");

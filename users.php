@@ -30,6 +30,12 @@ class users {
         }
     }
 
+    function logout(){
+        global $config;
+        session_destroy();
+        header("location: " . $config->root);
+    }
+
     function curUser(){
         global $sql;
         global $config;
