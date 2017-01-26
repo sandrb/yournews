@@ -44,7 +44,7 @@
             <ul>
                 <?php
                 foreach($keywords as $keyword){
-                    echo '<li>' . $keyword->keyword . ' ' . $keyword->weight . '</li>';
+                    echo '<li><div class="keyword_entry">' . $keyword->keyword . '</div><div class="keyword_weight"> ' . $keyword->weight . '</div></li>';
                 }
                 ?>
             </ul>

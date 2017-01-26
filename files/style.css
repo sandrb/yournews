@@ -487,3 +487,19 @@ h2.title {
 .bold{
     font-weight: bold;
 }
+
+
+
+.keyword_entry, .keyword_weight{
+    display: inline;
+    padding: 0 !important;
+    border-width: 0 !important;
+}
+
+.keyword_entry{
+    width: 200px;
+}
+
+.keyword_weight{
+    float: right;
+}
