@@ -13,12 +13,14 @@ class perform_matching{
         global $config;
         $possible_matches = $sql->fetch_object("
         SELECT 
-            articles.id as article_id, users.id as userid
+            articles.id as article_id, users.id as userid, article_keywords.keyword as keyword
         FROM 
-            articles,users
+            articles,users,article_keywords
         WHERE 
-            articles.timestamp >= users.last_update 
-        ORDER BY users.id 
+            articles.timestamp >= users.last_update AND
+            article_keywords.article_id = articles.id AND
+            keyword IN (SELECT keyword FROM user_keywords WHERE user_keywords.user_id = users.id)
+        ORDER BY users.id
         LIMIT 50");
 
         $user_keywords = array();
