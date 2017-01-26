@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Turn Out Mag</title>
+    <title>YourNews</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="files/style.css" />
     <!--[if lte IE 6]><link rel="stylesheet" type="text/css" href="files/ie.css" /><![endif]-->
@@ -12,13 +12,9 @@
     <!-- BEGIN header -->
     <div id="header">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="page.html">Demo Page</a></li>
-            <li><a href="contact.html">Contact Page</a></li>
+            <li><a href="<?php echo $config->root ?>">Home</a></li>
         </ul>
-        <p class="rss"> <a href="#">Posts</a> | <a href="#">Comments</a> | <a href="#">Email</a> </p>
-        <h1><a href="#">Turn Out Mag</a></h1>
+        <h1><a href="#">YourNews</a></h1>
         <div class="ad"><a href="#"><img src="files/images/ad468x60.gif" alt="" /></a></div>
     </div>
     <!-- END header -->

@@ -29,6 +29,8 @@ class config {
      */
     public $minweight = 100;
 
+    public $root = "http://localhost/yournews/";
+
     //online
     /*
     public $dbhost = "db6";

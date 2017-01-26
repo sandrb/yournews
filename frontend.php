@@ -35,6 +35,8 @@ class frontend {
     }
 
     function showFrontend(){
+        global $sql;
+        global $config;
         include("templates/overview.php");
     }
 }
