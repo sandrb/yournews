@@ -106,6 +106,26 @@ if($_GET['a'] == "files") {//something in files folder? simply include
     require_once("admin.php");
     $admin = new admin();
     $admin->overview();
+
+}else if($_GET['a'] == "duplicates") {
+
+    $articles = $sql->fetch_object("SELECT id,input_site,title FROM `" . $config->dbprefix . "articles` ORDER BY title");
+    $prevId = -1;
+    $prevInput = -1;
+    $prevTitle = null;
+    foreach($articles as $article){
+        if($article->input_site == $prevInput && $article->title == $prevTitle){
+            //found? delete this one
+            echo $article->title . "<br>";
+            $sql->query("DELETE FROM `" . $config->dbprefix . "articles` WHERE id = " . $article->id . " LIMIT 1");
+        }else{//no match? updates prev values
+            $prevId = $article->id;
+            $prevInput = $article->input_site;
+            $prevTitle = $article->title;
+        }
+
+    }
+
 }else{
     //load frontend and user class, frontend class handles the rest
     require_once("frontend.php");
