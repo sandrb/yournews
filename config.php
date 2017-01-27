@@ -39,13 +39,4 @@ class config {
      */
     public $root = "http://localhost/yournews/";
 
-    //online
-    /*
-    public $dbhost = "db6";
-    public $dbuser = "leuk";
-    public $dbpass = "S@Nd3r!";
-    public $dbname = "leuk";
-
-    public $dbprefix = "yournews_";
-    */
 }
