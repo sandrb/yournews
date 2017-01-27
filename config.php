@@ -29,6 +29,14 @@ class config {
      */
     public $minweight = 100;
 
+    /**
+     * the weight that get's added to the respective keywords
+     */
+    public $weightChange = 50;
+
+    /**
+     * home URL
+     */
     public $root = "http://localhost/yournews/";
 
     //online

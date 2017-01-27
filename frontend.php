@@ -69,5 +69,6 @@ class frontend {
             $user_keywords_array[] = $user_keyword->keyword;
         }
         include("templates/article.php");
+        $users->improve_match($curUser->id,$articleId);
     }
 }

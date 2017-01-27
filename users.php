@@ -114,4 +114,29 @@ class users {
 
         return $return;
     }
+
+    /**
+     * Increases the weight of the keywords matched between @articleId and @userId
+     */
+    function improve_match($userId,$articleId){
+        global $sql;
+        global $config;
+
+        $keywords = $sql->fetch_object("SELECT keyword 
+              FROM `" . $config->dbprefix . "article_keywords` 
+              WHERE `article_id` = '" . $sql->mysqli->real_escape_string($articleId) . "' AND 
+              keyword IN(SELECT keyword FROM `" . $config->dbprefix . "user_keywords` WHERE user_id = '" . $sql->mysqli->real_escape_string($userId) . "')");
+
+        //calculate increase per matched keyword
+        $increase = floor($config->weightChange / count($keywords));
+        foreach($keywords as $keyword){
+            $sql->query("UPDATE " . $config->dbprefix . "user_keywords SET weight = weight + " . $increase . " WHERE user_id = '" . $sql->mysqli->real_escape_string($userId) . "' AND keyword = '" . $sql->mysqli->real_escape_string($keyword->keyword) . "'");
+        }
+
+        $this->fix_max_weigth($userId);
+    }
+
+    function fix_max_weigth($user){
+        //todo
+    }
 }
