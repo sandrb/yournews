@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 26 jan 2017 om 14:24
+-- Gegenereerd op: 27 jan 2017 om 02:55
 -- Serverversie: 10.1.19-MariaDB
 -- PHP-versie: 5.5.38
 
@@ -5403,9 +5403,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `last_update`) VALUES
-(1, 'user1', '2015-12-31 21:00:00'),
-(2, 'user2', '2015-12-31 21:00:00'),
-(3, 'user3', '2015-12-31 21:00:00');
+(1, 'user1', '2017-01-27 01:55:18'),
+(2, 'user2', '2017-01-27 01:55:18'),
+(3, 'user3', '2017-01-27 01:55:18');
 
 -- --------------------------------------------------------
 
@@ -5544,12 +5544,12 @@ ALTER TABLE `input_sites`
 -- AUTO_INCREMENT voor een tabel `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6920;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6964;
 --
 -- AUTO_INCREMENT voor een tabel `matches`
 --
 ALTER TABLE `matches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3979;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4155;
 --
 -- AUTO_INCREMENT voor een tabel `stop_words`
 --
@@ -5559,12 +5559,12 @@ ALTER TABLE `stop_words`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT voor een tabel `user_keywords`
 --
 ALTER TABLE `user_keywords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --
