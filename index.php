@@ -108,13 +108,6 @@ if($_GET['a'] == "files") {//something in files folder? simply include
         $users->logout();
     }
 
-
-}else if($_GET['a'] == "admin") {
-    //admin interface with some database overviews
-    require_once("admin.php");
-    $admin = new admin();
-    $admin->overview();
-
 }else{
     //load frontend and user class, frontend class handles the rest
     require_once("frontend.php");

@@ -1,1 +1,1 @@
-{"matches_deleted":793,"keywords_deleted":26,"users_deleted":3,"users_added":3,"keywords_added":26}
+{"matches_deleted":2115,"keywords_deleted":26,"users_deleted":3,"users_added":3,"keywords_added":26,"matching_result":"{\"1\":1932,\"2\":134,\"3\":44}"}
