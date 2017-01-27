@@ -27,6 +27,13 @@
                     </select> <br>
                     <input type="submit" class="add_margins" name="login" value="Login">
                 </form>
+                <div style="height: 50px"></div>
+                <p class="add_margins bold">Add user</p>
+                <form action="" method="POST">
+                    <div class="add_user_div">Username (currently not in use): </div><div class="add_user_div"><input type="text" name="username"></div><br>
+                    <div class="add_user_div">Keywords (seperated by a space, at least 3): </div><div class="add_user_div"><input type="text" name="keywords"></div><br>
+                    <input type="submit" class="add_margins" name="add_user" value="Add user">
+                </form>
             </div>
         </div>
     </body>

@@ -33,6 +33,14 @@ class frontend {
             $this->display();
         }
 
+        //add user
+        if($_POST['add_user'] == "Add user"){
+            $keywords = explode(" ",$_POST['keywords']);
+            if(count($keywords) >= 3 && !empty($_POST['username'])){
+                $users->addUser($_POST['username'], $keywords);
+            }
+        }
+
         if($showform){
             //no login attempt
             $logins = $users->allUsers();

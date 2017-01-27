@@ -48,7 +48,7 @@
                 }
                 ?>
             </ul>
-            <form action="" method="POST">
+            <form action="" method="POST" id="add_keyword">
                 <input type="text" name="keyword">
                 <input type="submit" name="submit" value="Add keyword">
             </form>

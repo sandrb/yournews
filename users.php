@@ -15,6 +15,23 @@ class users {
         return $allUsers;
     }
 
+    function addUser($username,$keywords){
+        global $sql;
+        global $config;
+        $count = $sql->single_select("SELECT COUNT(*) FROM " . $config->dbprefix . "users WHERE username = '" . $sql->mysqli->real_escape_string($username) . "'");
+        if($count == 0){
+            //enforce unique username
+            $sql->query("INSERT INTO `" . $config->dbprefix . "users` ( `username`) VALUES ('" . $sql->mysqli->real_escape_string($username) . "');");
+            $userId =  $sql->single_select("SELECT id FROM " . $config->dbprefix . "users WHERE username = '" . $sql->mysqli->real_escape_string($username) . "' LIMIT 1");
+            //insert all keywords with equal weights
+            $weight = floor($config->totalweight / count($keywords));
+            foreach($keywords as $keyword){
+                $sql->query("INSERT INTO `" . $config->dbprefix . "user_keywords` ( `user_id`, `keyword`, `weight`) VALUES ( '" . $userId . "', '" . $sql->mysqli->real_escape_string($keyword) . "', '" . $weight . "');");
+            }
+            file_get_contents($config->root . "perform_matching/" . $userId);
+        }
+    }
+
     function login($userId){
         global $sql;
         global $config;
