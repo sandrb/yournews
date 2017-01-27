@@ -84,16 +84,18 @@ class perform_matching{
     }
 
     /**
-     * updates the last_update of all users
+     * updates the last_update of all users or a single user
+     * new date is the same as the date of the newest article for which we have keywords in the database, this way we
+     * don't skip any non-indexed articles.
      */
     private function updateUsers($userid = null){
         global $sql;
         global $config;
         if($userid != null){
 
-            $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = NOW() WHERE id = " . $userid . " LIMIT 1");
+            $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = (SELECT timestamp FROM " . $config->dbprefix . "articles WHERE id IN(SELECT article_id FROM " . $config->dbprefix . "article_keywords) ORDER BY timestamp ASC LIMIT 1) WHERE id = " . $userid . " LIMIT 1");
         }else{
-            $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = NOW()");
+            $sql->query("UPDATE " . $config->dbprefix . "users SET last_update = (SELECT timestamp FROM " . $config->dbprefix . "articles WHERE id IN(SELECT article_id FROM " . $config->dbprefix . "article_keywords) ORDER BY timestamp ASC LIMIT 1)");
         }
     }
 
