@@ -289,30 +289,6 @@ img {
 #sidebar .box .video {
     padding: 9px;
 }
-#sidebar form {
-    width: 310px; height: 33px;
-    background: #ECEBEB url(images/search.gif) no-repeat center;
-    padding: 4px;
-    margin-bottom: 10px;
-}
-#sidebar form input {
-    float: left;
-    border: 0;
-    width: 218px;
-    font-size: 1.2em;
-    font-family: Verdana;
-    margin: 8px;
-}
-#sidebar form button {
-    float: right;
-    width: 75px; height: 33px;
-    font-size: 0.9em;
-    font-family: Verdana;
-    font-weight: bold;
-    color: #ffffff;
-    border: 0;
-    background-color: transparent;
-}
 /** END sidebar **/
 
 /** BEGIN footer **/
@@ -488,8 +464,6 @@ h2.title {
     font-weight: bold;
 }
 
-
-
 .keyword_entry, .keyword_weight{
     display: inline;
     padding: 0 !important;
@@ -502,6 +476,14 @@ h2.title {
 
 .keyword_weight{
     float: right;
+}
+
+form{
+    background-color: #ffffff;
+    padding: 5px;
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+    border-color: #cbcbcb;
 }
 
 #info_block{

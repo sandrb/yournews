@@ -48,6 +48,10 @@
                 }
                 ?>
             </ul>
+            <form action="" method="POST">
+                <input type="text" name="keyword">
+                <input type="submit" name="submit" value="Add keyword">
+            </form>
         </div>
         <!-- END right -->
     </div>
