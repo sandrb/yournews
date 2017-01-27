@@ -62,6 +62,28 @@ class users {
     }
 
     /**
+     * adds keyword to this user's list with average weight
+     */
+
+    function addKeyword($keyword){
+        global $sql;
+        global $config;
+
+        $curUser = $this->curUser();
+        $userId = $curUser->id;
+        $inDB = $sql->single_select("SELECT count(*) FROM `" . $config->dbprefix . "user_keywords` WHERE user_id ='" . $sql->mysqli->real_escape_string($userId) . "' AND keyword = '" . $sql->mysqli->real_escape_string($keyword) . "'");
+        //don't add dupliactes
+        if($inDB == 0){
+            $totalweight = $sql->single_select("SELECT SUM(weight) FROM `" . $config->dbprefix . "user_keywords` WHERE user_id ='" . $sql->mysqli->real_escape_string($userId) . "'");
+            $amountKeywords = $sql->single_select("SELECT count(*) FROM `" . $config->dbprefix . "user_keywords` WHERE user_id ='" . $sql->mysqli->real_escape_string($userId) . "'");
+            $averageWeight = ceil( $totalweight / $amountKeywords );//ceil the average to ensure they remain integers
+            $sql->query("INSERT INTO `" . $config->dbprefix . "user_keywords` (`user_id`, `keyword`, `weight`) VALUES ( '" . $sql->mysqli->real_escape_string($userId) . "', '" . $sql->mysqli->real_escape_string($keyword) . "', '" . $averageWeight . "');");
+            //fix max weight constraint
+            $this->fix_max_weigth($userId);
+        }
+    }
+
+    /**
      * Increases the weight of the keywords matched between @articleId and @userId
      */
     function improve_match($userId,$articleId){

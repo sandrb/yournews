@@ -43,6 +43,19 @@ class frontend {
     function showOverview($curUser){
         global $sql;
         global $config;
+        global $users;
+
+        if(isset($_POST['keyword'])){
+            //add new keyword
+
+            //only take part before space
+            $keyword = $_POST['keyword'];
+            if(strpos($keyword," ") !== false){
+                list($keyword,) = explode(" ", $keyword);
+            }
+            $users->addKeyword($keyword);
+        }
+
         //die("SELECT id,input_site,url,timestamp,title FROM " . $config->dbprefix . "articles WHERE id IN(SELECT article FROM " . $config->dbprefix . "matches WHERE user = " . $curUser->id . ")");
         $articles = $sql->fetch_object("SELECT id,input_site,url,timestamp,title FROM " . $config->dbprefix . "articles WHERE id IN(SELECT article FROM " . $config->dbprefix . "matches WHERE user = " . $curUser->id . ") ORDER BY timestamp DESC");
         $keywords = $sql->fetch_object("SELECT id, keyword, weight FROM " . $config->dbprefix . "user_keywords WHERE user_id = '" .  $curUser->id  . "' ORDER BY weight DESC");
