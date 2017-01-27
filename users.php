@@ -95,7 +95,6 @@ class users {
             $keywords = $sql->fetch_object("SELECT id,keyword,weight FROM `" . $config->dbprefix . "user_keywords` WHERE user_id ='" . $sql->mysqli->real_escape_string($userId) . "'");
             $decrease = ceil( ($totalweight - $config->totalweight) / count($keywords));
 
-            print_r($keywords);
             foreach($keywords as $keyword){
                 if($keyword->weight <= $decrease){
                     //keyword weight would be below 0, remove keyword and rerun afterwards
