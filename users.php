@@ -205,7 +205,7 @@ class users {
 (33, 3, 'weeknd', 100),
 (34, 3, 'mariah', 100),
 (35, 3, 'kardashian', 100),
-(36, 3, 'Kanye', 0);");
+(36, 3, 'Kanye', 100);");
         $return["keywords_added"] = $sql->mysqli->affected_rows;
         $return["matching_result"] = file_get_contents($config->root . "perform_matching");
 

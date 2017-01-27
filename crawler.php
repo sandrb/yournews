@@ -91,7 +91,6 @@ class crawler {
                 continue;
             }
 
-
             //skip urls that are already in the database
             foreach($visited as $visurl){
                 if($url == $visurl->url){
@@ -112,7 +111,6 @@ class crawler {
                 $subdomain .= ".";
             }
 
-            //todo: improve this for: usatoday.com, foxsports.com, nbcsports.com
             $articledom = new DomDocument();
             $articledom->loadHTMLFile("http://" . $subdomain . $site->domain . $url);
             $articlefinder = new DomXPath($articledom);
