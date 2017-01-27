@@ -48,8 +48,6 @@
                 }
                 ?>
             </ul>
-            <p>
-            After making changes, please wait a few seconds, then do a frefresh and your newsfeed should be updated.
         </div>
         <!-- END right -->
     </div>
