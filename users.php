@@ -92,8 +92,10 @@ class users {
         $totalweight = $sql->single_select("SELECT SUM(weight) FROM `" . $config->dbprefix . "user_keywords` WHERE user_id ='" . $sql->mysqli->real_escape_string($userId) . "'");
         if($totalweight > $config->totalweight){
             $rerun = false;
-            $keywords = $sql->single_select("SELECT id,keyword,weight FROM `" . $config->dbprefix . "user_keywords` WHERE user_id ='" . $sql->mysqli->real_escape_string($userId) . "'");
-            $decrease = ceil($config->totalweight / count($keywords));
+            $keywords = $sql->fetch_object("SELECT id,keyword,weight FROM `" . $config->dbprefix . "user_keywords` WHERE user_id ='" . $sql->mysqli->real_escape_string($userId) . "'");
+            $decrease = ceil( ($totalweight - $config->totalweight) / count($keywords));
+
+            print_r($keywords);
             foreach($keywords as $keyword){
                 if($keyword->weight <= $decrease){
                     //keyword weight would be below 0, remove keyword and rerun afterwards
@@ -102,7 +104,6 @@ class users {
                 }else{
                     //decreaes weight
                     $sql->query("UPDATE " . $config->dbprefix . "user_keywords SET weight = weight - " . $decrease . " WHERE id = '" . $keyword->id . "'");
-
                 }
             }
 
@@ -113,7 +114,6 @@ class users {
                 $this->resetUpdate($userId);
                 file_get_contents($config->root . "perform_matching/" . $userId);
             }
-
         }
     }
 
