@@ -5,6 +5,10 @@
  * Date: 5-1-2017
  * Time: 00:19
  */
+if (substr($_SERVER['HTTP_HOST'], 0, 4) === 'www.') {
+    header('Location: http://' . substr($_SERVER['HTTP_HOST'], 4).$_SERVER['REQUEST_URI']);
+    exit;
+}
 
 //load config
 require_once("config.php");
