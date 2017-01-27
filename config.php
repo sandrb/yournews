@@ -35,7 +35,7 @@ class config {
     public $weightChange = 50;
 
     /**
-     * home URL
+     * home URL, including http:// and / at the end
      */
     public $root = "http://localhost/yournews/";
 

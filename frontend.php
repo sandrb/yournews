@@ -69,6 +69,7 @@ class frontend {
             $user_keywords_array[] = $user_keyword->keyword;
         }
         include("templates/article.php");
+        flush();//send output to user and then do keyword updates in the background
         $users->improve_match($curUser->id,$articleId);
     }
 }

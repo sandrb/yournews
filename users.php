@@ -61,6 +61,64 @@ class users {
         return $return;
     }
 
+    /**
+     * Increases the weight of the keywords matched between @articleId and @userId
+     */
+    function improve_match($userId,$articleId){
+        global $sql;
+        global $config;
+
+        $keywords = $sql->fetch_object("SELECT keyword 
+              FROM `" . $config->dbprefix . "article_keywords` 
+              WHERE `article_id` = '" . $sql->mysqli->real_escape_string($articleId) . "' AND 
+              keyword IN(SELECT keyword FROM `" . $config->dbprefix . "user_keywords` WHERE user_id = '" . $sql->mysqli->real_escape_string($userId) . "')");
+
+        //calculate increase per matched keyword
+        $increase = floor($config->weightChange / count($keywords));
+        foreach($keywords as $keyword){
+            $sql->query("UPDATE " . $config->dbprefix . "user_keywords SET weight = weight + " . $increase . " WHERE user_id = '" . $sql->mysqli->real_escape_string($userId) . "' AND keyword = '" . $sql->mysqli->real_escape_string($keyword->keyword) . "'");
+        }
+
+        $this->fix_max_weigth($userId);
+    }
+
+    /**
+     * Decreases overall keyword weights of user $userId where needed to ensure the total weight is no more than $config->totalweight
+     */
+    function fix_max_weigth($userId){
+        global $sql;
+        global $config;
+
+        $totalweight = $sql->single_select("SELECT SUM(weight) FROM `" . $config->dbprefix . "user_keywords` WHERE user_id ='" . $sql->mysqli->real_escape_string($userId) . "'");
+        if($totalweight > $config->totalweight){
+            $rerun = false;
+            $keywords = $sql->single_select("SELECT id,keyword,weight FROM `" . $config->dbprefix . "user_keywords` WHERE user_id ='" . $sql->mysqli->real_escape_string($userId) . "'");
+            $decrease = ceil($config->totalweight / count($keywords));
+            foreach($keywords as $keyword){
+                if($keyword->weight <= $decrease){
+                    //keyword weight would be below 0, remove keyword and rerun afterwards
+                    $sql->query("DELETE FROM `" . $config->dbprefix . "user_keywords` WHERE id = " . $keyword->id . " LIMIT 1");
+                    $rerun = true;
+                }else{
+                    //decreaes weight
+                    $sql->query("UPDATE " . $config->dbprefix . "user_keywords SET weight = weight - " . $decrease . " WHERE id = '" . $keyword->id . "'");
+
+                }
+            }
+
+            if($rerun){
+                $this->fix_max_weigth($userId);
+            }else{
+                //reset lastupdate and redo matching
+                $this->resetUpdate($userId);
+                file_get_contents($config->root . "perform_matching/" . $userId);
+            }
+
+        }
+    }
+
+
+    //resets all user-related data to standard
     function fullReset(){
         global $sql;
         global $config;
@@ -111,32 +169,8 @@ class users {
 (35, 3, 'kardashian', 100),
 (36, 3, 'Kanye', 0);");
         $return["keywords_added"] = $sql->mysqli->affected_rows;
+        $return["matching_result"] = file_get_contents($config->root . "perform_matching");
 
         return $return;
-    }
-
-    /**
-     * Increases the weight of the keywords matched between @articleId and @userId
-     */
-    function improve_match($userId,$articleId){
-        global $sql;
-        global $config;
-
-        $keywords = $sql->fetch_object("SELECT keyword 
-              FROM `" . $config->dbprefix . "article_keywords` 
-              WHERE `article_id` = '" . $sql->mysqli->real_escape_string($articleId) . "' AND 
-              keyword IN(SELECT keyword FROM `" . $config->dbprefix . "user_keywords` WHERE user_id = '" . $sql->mysqli->real_escape_string($userId) . "')");
-
-        //calculate increase per matched keyword
-        $increase = floor($config->weightChange / count($keywords));
-        foreach($keywords as $keyword){
-            $sql->query("UPDATE " . $config->dbprefix . "user_keywords SET weight = weight + " . $increase . " WHERE user_id = '" . $sql->mysqli->real_escape_string($userId) . "' AND keyword = '" . $sql->mysqli->real_escape_string($keyword->keyword) . "'");
-        }
-
-        $this->fix_max_weigth($userId);
-    }
-
-    function fix_max_weigth($user){
-        //todo
     }
 }
